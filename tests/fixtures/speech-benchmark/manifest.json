@@ -1,0 +1,587 @@
+{
+  "version": 1,
+  "fleurs": {
+    "dataset": "google/fleurs",
+    "revision": "70bb2e84b976b7e960aa89f1c648e09c59f894dd",
+    "license": "CC-BY-4.0",
+    "attribution": "FLEURS (Conneau et al., 2022), https://huggingface.co/datasets/google/fleurs, dev split, CC-BY-4.0. Clips are downloaded on demand and never committed.",
+    "archives": {
+      "de_de": {
+        "sha256": "72cac13bbddbddf674d8102a9e7b90a3b1db5d777ed92e88eccc5ae69cb8fc9d"
+      },
+      "en_us": {
+        "sha256": "2658fda72f199e12676ecac9415094667a4e14e149b146e568ea00b2a2f0954c"
+      }
+    }
+  },
+  "werCeilings": {
+    "de": 0.12,
+    "en": 0.12
+  },
+  "knownFailures": [
+    {
+      "route": "apple",
+      "check": "fleurs-de-1515/martelly",
+      "issue": 27,
+      "note": "The recogniser writes Martellis, so the translation says Martelli's."
+    },
+    {
+      "route": "apple",
+      "check": "fleurs-de-1530/cut-down",
+      "issue": 27,
+      "note": "'gefällt werden' (cut down) translated as 'approved'."
+    },
+    {
+      "route": "medium",
+      "check": "fleurs-de-1515/martelly",
+      "issue": 29,
+      "note": "Name recognised as Martellis, then translated as Mattel."
+    },
+    {
+      "route": "medium",
+      "check": "fleurs-de-1520/opposition",
+      "issue": 29,
+      "note": "Inverts the meaning: 'those who oppose Australia becoming a republic' becomes 'argue that Australia is becoming a republic'."
+    },
+    {
+      "route": "medium",
+      "check": "fleurs-de-1523/one-point",
+      "issue": 29,
+      "note": "Drops the one-point margin ('a lead of 21-20')."
+    },
+    {
+      "route": "medium",
+      "check": "fleurs-de-1530/cut-down",
+      "issue": 29,
+      "note": "'gefällt werden' (cut down) translated as 'killed'."
+    },
+    {
+      "route": "medium",
+      "check": "fleurs-de-1570/tariffs",
+      "issue": 29,
+      "note": "'Zölle' (tariffs) translated as 'taxes'."
+    }
+  ],
+  "clips": [
+    {
+      "id": "fleurs-de-1513",
+      "source": "fleurs",
+      "fleursLanguage": "de_de",
+      "fleursId": "1513",
+      "file": "149437509380665175.wav",
+      "sha256": "6303885f518777651404d6c72e120fe1ebcc294480172dba52928f535e2b056f",
+      "language": "de",
+      "lane": "remote",
+      "reference": "Argentinien ist bekannt dafür, dass sein Polo-Team und die Spieler zu den besten der Welt gehören.",
+      "englishReference": "Argentina is well known for having one of the best polo teams and players in the world.",
+      "meaning": [
+        {
+          "id": "argentina",
+          "anyOf": [
+            "argentin"
+          ]
+        },
+        {
+          "id": "polo",
+          "anyOf": [
+            "polo"
+          ]
+        },
+        {
+          "id": "best-in-world",
+          "anyOf": [
+            "best.*world",
+            "world'?s best",
+            "top .*world"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de-1515",
+      "source": "fleurs",
+      "fleursLanguage": "de_de",
+      "fleursId": "1515",
+      "file": "18421202339266792148.wav",
+      "sha256": "9e084983efc5a284c41f3236ca8a0b073a5c3e90eff54728701e15af1a10aee7",
+      "language": "de",
+      "lane": "remote",
+      "reference": "Es ist Martellys fünftes CEP innerhalb von vier Jahren.",
+      "englishReference": "It is Martelly's fifth CEP in four years.",
+      "meaning": [
+        {
+          "id": "martelly",
+          "anyOf": [
+            "martelly"
+          ]
+        },
+        {
+          "id": "fifth",
+          "anyOf": [
+            "fifth",
+            "5th"
+          ]
+        },
+        {
+          "id": "four-years",
+          "anyOf": [
+            "four years",
+            "4 years"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de-1517",
+      "source": "fleurs",
+      "fleursLanguage": "de_de",
+      "fleursId": "1517",
+      "file": "11568009216104084779.wav",
+      "sha256": "6410514864409de7362bd2de92c932d5d87711c291bf0a34ef3f3c26d187e5dc",
+      "language": "de",
+      "lane": "remote",
+      "reference": "Forschung im Bereich KI umfasst die Herstellung von Maschinen zur Automatisierung von Aufgaben, die intelligentes Verhalten erfordern.",
+      "englishReference": "Research in AI involves making machines to automate tasks that require intelligent behavior.",
+      "meaning": [
+        {
+          "id": "ai",
+          "anyOf": [
+            "\\bAI\\b",
+            "artificial intelligence"
+          ]
+        },
+        {
+          "id": "machines",
+          "anyOf": [
+            "machine"
+          ]
+        },
+        {
+          "id": "automation",
+          "anyOf": [
+            "automat"
+          ]
+        },
+        {
+          "id": "intelligent-behavior",
+          "anyOf": [
+            "intelligent (behavio|action|conduct)",
+            "intelligen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de-1520",
+      "source": "fleurs",
+      "fleursLanguage": "de_de",
+      "fleursId": "1520",
+      "file": "7516032315467685270.wav",
+      "sha256": "b19a87cd46bcd7efbc95292b2c4fe2db18af2db8cfa59c3cbd27fcbffced48cf",
+      "language": "de",
+      "lane": "remote",
+      "reference": "Von den 1.400 Personen, die vor den Bundeswahlen 2010 befragt wurden, hat der Anteil derjenigen, die sich dagegen aussprechen, dass Australien zur Republik wird, seit 2008 um 8 Prozent zugenommen.",
+      "englishReference": "Out of 1,400 people polled prior to the 2010 federal election, those who oppose Australia becoming a republic grew by 8 per cent since 2008.",
+      "meaning": [
+        {
+          "id": "1400-people",
+          "anyOf": [
+            "1,?400",
+            "1\\.400"
+          ]
+        },
+        {
+          "id": "2010",
+          "anyOf": [
+            "2010"
+          ]
+        },
+        {
+          "id": "republic",
+          "anyOf": [
+            "republic"
+          ]
+        },
+        {
+          "id": "opposition",
+          "anyOf": [
+            "oppos",
+            "against (australia|it|becoming|the)"
+          ]
+        },
+        {
+          "id": "eight-percent",
+          "anyOf": [
+            "\\b8 ?(percent|per cent|%)",
+            "\\beight (percent|per cent)"
+          ]
+        },
+        {
+          "id": "since-2008",
+          "anyOf": [
+            "since 2008"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de-1523",
+      "source": "fleurs",
+      "fleursLanguage": "de_de",
+      "fleursId": "1523",
+      "file": "8552718329090582865.wav",
+      "sha256": "f538031bf3b676dcd9a9fb9eb643a636bf717c8da39cbcc0eaa9541518090048",
+      "language": "de",
+      "lane": "remote",
+      "reference": "Der Endstand war ein Sieg mit einem Punkt Vorsprung von 21 zu 20, der die Erfolgsserie der All Blacks von 15 Spielen beendete.",
+      "englishReference": "The final score was a one-point victory, 21 to 20, ending the All Blacks' 15 game winning streak.",
+      "meaning": [
+        {
+          "id": "score",
+          "anyOf": [
+            "\\b21\\D{1,6}20\\b"
+          ]
+        },
+        {
+          "id": "one-point",
+          "anyOf": [
+            "one[- ]point",
+            "1[- ]point"
+          ]
+        },
+        {
+          "id": "all-blacks",
+          "anyOf": [
+            "all blacks"
+          ]
+        },
+        {
+          "id": "fifteen-games",
+          "anyOf": [
+            "\\b15\\b",
+            "fifteen"
+          ]
+        },
+        {
+          "id": "streak-ended",
+          "anyOf": [
+            "\\b(end(ed|s|ing)?|broke|snapped|stopped|stopping)\\b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de-1528",
+      "source": "fleurs",
+      "fleursLanguage": "de_de",
+      "fleursId": "1528",
+      "file": "10867406545374035954.wav",
+      "sha256": "64e2b82978216309dadd7b8d720ef4882f84d0eb290e5852cd2e0b55b7d3db37",
+      "language": "de",
+      "lane": "remote",
+      "reference": "Manche Festivals haben spezielle Campingbereiche für Familien mit kleinen Kindern.",
+      "englishReference": "Some festivals have special camping areas for families with young children.",
+      "meaning": [
+        {
+          "id": "festivals",
+          "anyOf": [
+            "festival"
+          ]
+        },
+        {
+          "id": "camping",
+          "anyOf": [
+            "camping"
+          ]
+        },
+        {
+          "id": "families",
+          "anyOf": [
+            "famil"
+          ]
+        },
+        {
+          "id": "young-children",
+          "anyOf": [
+            "(young|small|little) children",
+            "kids"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de-1530",
+      "source": "fleurs",
+      "fleursLanguage": "de_de",
+      "fleursId": "1530",
+      "file": "14925190301953652068.wav",
+      "sha256": "056bf5f6e6d4c6d9ec0bbc50498884c2803d388a325f5e7120b53a5179fb6a74",
+      "language": "de",
+      "lane": "remote",
+      "reference": "Er hätte am Dienstag gefällt werden sollen, wurde aber durch einen Notfallgerichtsentscheid gerettet.",
+      "englishReference": "It had been scheduled to be cut down on Tuesday, but was saved after an emergency court ruling.",
+      "meaning": [
+        {
+          "id": "tuesday",
+          "anyOf": [
+            "tuesday"
+          ]
+        },
+        {
+          "id": "cut-down",
+          "anyOf": [
+            "(cut|chopped|taken|brought) down",
+            "\\bfelled\\b"
+          ]
+        },
+        {
+          "id": "emergency",
+          "anyOf": [
+            "emergency"
+          ]
+        },
+        {
+          "id": "saved",
+          "anyOf": [
+            "saved",
+            "rescued",
+            "spared"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de-1543",
+      "source": "fleurs",
+      "fleursLanguage": "de_de",
+      "fleursId": "1543",
+      "file": "15429076447019793968.wav",
+      "sha256": "6d9089ab34ad96f14f8f0cda8286c72485cd4f1682672cab864f7555a74a6e5a",
+      "language": "de",
+      "lane": "remote",
+      "reference": "Der Patient hatte sich in Nigeria aufgehalten, wo einige Fälle des Ebolavirus auftraten.",
+      "englishReference": "The patient had been to Nigeria, where some cases of the Ebola virus have occurred.",
+      "meaning": [
+        {
+          "id": "patient",
+          "anyOf": [
+            "patient"
+          ]
+        },
+        {
+          "id": "nigeria",
+          "anyOf": [
+            "nigeria"
+          ]
+        },
+        {
+          "id": "ebola",
+          "anyOf": [
+            "ebola"
+          ]
+        },
+        {
+          "id": "cases",
+          "anyOf": [
+            "cases"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de-1562",
+      "source": "fleurs",
+      "fleursLanguage": "de_de",
+      "fleursId": "1562",
+      "file": "16658361400649282886.wav",
+      "sha256": "b695415a75766b45fc20fa92313368be63d5931bf17601b9213030d1208f9163",
+      "language": "de",
+      "lane": "remote",
+      "reference": "Dies wurde üblich, doch das Eisen sorgte für mehr Verschleiß an den hölzernen Rädern der Wagen.",
+      "englishReference": "This became common practice, but the iron caused more wear on the wooden wheels of the wagons.",
+      "meaning": [
+        {
+          "id": "common",
+          "anyOf": [
+            "common",
+            "usual",
+            "standard",
+            "widespread",
+            "normal"
+          ]
+        },
+        {
+          "id": "iron",
+          "anyOf": [
+            "iron"
+          ]
+        },
+        {
+          "id": "wear",
+          "anyOf": [
+            "wear"
+          ]
+        },
+        {
+          "id": "wooden-wheels",
+          "anyOf": [
+            "wooden wheels",
+            "wheels? (made )?(of|from) wood"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fleurs-de-1570",
+      "source": "fleurs",
+      "fleursLanguage": "de_de",
+      "fleursId": "1570",
+      "file": "9835644362854829850.wav",
+      "sha256": "3c184368c14ee69cc55966b0a2c010edeb959c31020971c22e5ce8d9d7a7b772",
+      "language": "de",
+      "lane": "remote",
+      "reference": "Er hatte zudem keine Befugnis, Steuergesetze und Zölle zwischen Bundesstaaten außer Kraft zu setzen.",
+      "englishReference": "It also had no authority to override tax laws and tariffs between states.",
+      "meaning": [
+        {
+          "id": "no-authority",
+          "anyOf": [
+            "no (authority|power|right|mandate)",
+            "(lacked|without) (the )?(authority|power)",
+            "not (have )?(the )?(authority|power)"
+          ]
+        },
+        {
+          "id": "tax-laws",
+          "anyOf": [
+            "tax"
+          ]
+        },
+        {
+          "id": "tariffs",
+          "anyOf": [
+            "tariff",
+            "customs",
+            "dut(y|ies)"
+          ]
+        },
+        {
+          "id": "states",
+          "anyOf": [
+            "(?<!united )states"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fleurs-en-1510",
+      "source": "fleurs",
+      "fleursLanguage": "en_us",
+      "fleursId": "1510",
+      "file": "2031944424456517788.wav",
+      "sha256": "66a44512e47ba2602858aba53dfe261c0799783ecdcac1193ca1082798102c58",
+      "language": "en",
+      "lane": "me",
+      "reference": "The U.N. also hopes to finalize a fund to help countries affected by global warming to cope with the impacts."
+    },
+    {
+      "id": "fleurs-en-1521",
+      "source": "fleurs",
+      "fleursLanguage": "en_us",
+      "fleursId": "1521",
+      "file": "11909868287041540501.wav",
+      "sha256": "80a8402ab1352900fed0c48b4ad687681a3e91ce3a94864014a327ad3f2ac620",
+      "language": "en",
+      "lane": "me",
+      "reference": "The satellite in space gets the call and then reflects it back down, almost instantly."
+    },
+    {
+      "id": "fleurs-en-1531",
+      "source": "fleurs",
+      "fleursLanguage": "en_us",
+      "fleursId": "1531",
+      "file": "362046675404647036.wav",
+      "sha256": "7d73522ece03f94e01fc9779ee70841695bcfcb67d667359ad24da8b59eaf6f1",
+      "language": "en",
+      "lane": "me",
+      "reference": "The East African Islands are in the Indian Ocean off the eastern coast of Africa."
+    },
+    {
+      "id": "fleurs-en-1544",
+      "source": "fleurs",
+      "fleursLanguage": "en_us",
+      "fleursId": "1544",
+      "file": "16131823300806444840.wav",
+      "sha256": "5edc6f643502d49f46438a222841e621071eb2f50a6016a1c21e3d1dcc5b0fb6",
+      "language": "en",
+      "lane": "me",
+      "reference": "Insects were the first animals to take to the air. Their ability to fly helped them evade enemies more easily and find food and mates more efficiently."
+    },
+    {
+      "id": "fleurs-en-1548",
+      "source": "fleurs",
+      "fleursLanguage": "en_us",
+      "fleursId": "1548",
+      "file": "9230849245336389657.wav",
+      "sha256": "c0fb04e77f07349ff965de6181c754fc7f8a5ab024548fe47d2ffe89a18b873e",
+      "language": "en",
+      "lane": "me",
+      "reference": "When you call someone who is thousands of miles away, you are using a satellite."
+    },
+    {
+      "id": "fleurs-en-1551",
+      "source": "fleurs",
+      "fleursLanguage": "en_us",
+      "fleursId": "1551",
+      "file": "4023494736730069902.wav",
+      "sha256": "9046779ea70c62c45230af2ec43276278a84784e73c01f6967e74c4e425bf5ea",
+      "language": "en",
+      "lane": "me",
+      "reference": "They are still trying to determine just how large the crash was and how the Earth will be affected."
+    },
+    {
+      "id": "fleurs-en-1552",
+      "source": "fleurs",
+      "fleursLanguage": "en_us",
+      "fleursId": "1552",
+      "file": "6415341913845555034.wav",
+      "sha256": "d581819be085009577c521a58710e4242d0cc0d717f81d7a9c0845c6cdb235db",
+      "language": "en",
+      "lane": "me",
+      "reference": "The result of plotting analysis will be posted to a public website."
+    },
+    {
+      "id": "fleurs-en-1553",
+      "source": "fleurs",
+      "fleursLanguage": "en_us",
+      "fleursId": "1553",
+      "file": "2195941661715429054.wav",
+      "sha256": "c7e8a6a95df50b34586d641ed0d0e4d2116038cc1f2592685890756c158dfb38",
+      "language": "en",
+      "lane": "me",
+      "reference": "Christmas is one of the most important holidays of Christianity, and is celebrated as the birthday of Jesus."
+    },
+    {
+      "id": "fleurs-en-1557",
+      "source": "fleurs",
+      "fleursLanguage": "en_us",
+      "fleursId": "1557",
+      "file": "665062717314476757.wav",
+      "sha256": "98b61e1160e1be968781fc647ab93c247337916495574d74a78a01f8ec0c6695",
+      "language": "en",
+      "lane": "me",
+      "reference": "After seeing the horrors and atrocities of war during World War I, nations desired to avoid such a situation again in the future."
+    },
+    {
+      "id": "fleurs-en-1560",
+      "source": "fleurs",
+      "fleursLanguage": "en_us",
+      "fleursId": "1560",
+      "file": "10354232920158081925.wav",
+      "sha256": "5458485def19263ab7a1c9a54ce9f289db0be234ee39026c0a897c3c5fb2d9cf",
+      "language": "en",
+      "lane": "me",
+      "reference": "As soon as you get out of the current, swimming back is no more difficult than normally."
+    }
+  ]
+}

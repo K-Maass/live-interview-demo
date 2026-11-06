@@ -1,0 +1,12 @@
+{
+  "identifier": "live-widget",
+  "description": "Compact live presentation: events, size, hide and move only",
+  "windows": ["live-assistance-widget"],
+  "permissions": [
+    "core:event:default",
+    "allow-forward-widget-action",
+    "core:window:allow-hide",
+    "core:window:allow-set-size",
+    "core:window:allow-start-dragging"
+  ]
+}

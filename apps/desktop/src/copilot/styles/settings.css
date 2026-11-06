@@ -1,0 +1,75 @@
+/* Settings window (shell/SettingsDialog): a rounded panel over the dimmed, slightly blurred app. The section list on the
+   left is grouped like a Mac settings window; each section's content sits in soft cards on the right. Above the
+   welcome (z-index 100) so Settings opened from the welcome stacks over it. */
+.settings-overlay { --settings-card:var(--panel-soft); --settings-sidebar:var(--sidebar-soft); position:fixed; inset:0; z-index:110; display:flex; align-items:center; justify-content:center; padding:52px 48px 40px; background:var(--scrim); -webkit-backdrop-filter:blur(5px) saturate(1.1); backdrop-filter:blur(5px) saturate(1.1); animation:settings-dim .18s ease-out both; }
+/* The title bar's height stays a window drag region (the app behind is inert); the macOS window buttons sit above it. */
+.settings-drag-strip { position:absolute; top:0; left:0; right:0; height:40px; }
+.settings-window { position:relative; display:flex; width:min(1240px,100%); height:min(860px,100%); min-height:0; overflow:hidden; background:var(--surface); border-radius:20px; box-shadow:0 0 0 1px #0000000f,0 10px 30px #0000001f,0 30px 80px #00000024; animation:settings-in .18s cubic-bezier(.2,.8,.3,1) both; }
+@keyframes settings-dim { from { opacity:0; } to { opacity:1; } }
+@keyframes settings-in { from { opacity:0; transform:scale(.975); } to { opacity:1; transform:none; } }
+/* Reduced transparency or more contrast: a plain dim, no blur. Reduced motion: no animation (tokens.css removes all). */
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more) { .settings-overlay { background:var(--scrim-strong); -webkit-backdrop-filter:none; backdrop-filter:none; } }
+@media (prefers-reduced-motion:reduce) { .settings-overlay,.settings-window { animation:none; } }
+
+.settings-sidebar { width:236px; flex-shrink:0; display:flex; flex-direction:column; gap:18px; padding:22px 12px 16px; background:var(--settings-sidebar); border-right:1px solid var(--hairline); overflow-y:auto; }
+.settings-sidebar-title { display:none; }
+.settings-group { display:flex; flex-direction:column; gap:1px; }
+.settings-group-label { padding:0 10px 5px; font-size:.75rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+.settings-nav-item { width:100%; min-height:32px; justify-content:flex-start; gap:10px; padding:6px 10px; border:0; border-radius:8px; background:transparent; font-size:.9375rem; font-weight:400; text-align:left; color:var(--ink); }
+.settings-nav-item > svg:first-child { color:var(--accent); }
+.settings-nav-item > span { flex:1; min-width:0; }
+.settings-nav-item:hover:not(:disabled) { background:var(--nav-hover); }
+.settings-nav-item.selected,.settings-nav-item.selected:hover:not(:disabled) { background:var(--selected); color:var(--selected-text); font-weight:600; }
+.settings-nav-chevron { display:none; color:var(--muted); }
+.settings-version { margin-top:auto; padding:10px 10px 0; font-size:.8125rem; color:var(--muted); font-variant-numeric:tabular-nums; }
+
+.settings-main { flex:1; min-width:0; display:flex; flex-direction:column; }
+.settings-header { display:flex; align-items:center; gap:12px; padding:26px 36px 14px; }
+.settings-header h1 { flex:1; min-width:0; margin:0; font-size:1.75rem; letter-spacing:-.5px; }
+.settings-back { display:none; }
+.settings-close { width:30px; height:30px; min-width:30px; min-height:30px; border-radius:50%; color:var(--muted); align-self:flex-start; margin:-8px -14px 0 0; }
+.settings-close:hover:not(:disabled) { background:var(--fill); color:var(--ink); }
+.settings-scroll { flex:1; min-height:0; overflow-y:auto; padding:6px 36px 36px; }
+
+/* Section content: each section's own sections become soft cards with hairline rows; headings are card titles. */
+.settings-scroll .settings-content { max-width:860px; }
+.settings-scroll .settings-content > div > .ui-section,.settings-scroll .settings-content > div > section,.settings-scroll .settings-content > div > .copilot-panel,.settings-scroll .keyboard-settings > section { margin:0 0 16px; padding:18px 20px; border:0; border-radius:14px; background:var(--settings-card); box-shadow:none; }
+.settings-scroll .settings-content > div > .ui-section:last-child { margin-bottom:0; }
+.settings-scroll .settings-content > div > :is(.ui-section,section) > :last-child,.settings-scroll .settings-content > div > :is(.ui-section,section) > p:last-of-type:last-child { margin-bottom:0; }
+.settings-scroll .cc-section { max-width:none; }
+.settings-scroll .settings-content h2 { font-size:1.0625rem; letter-spacing:-.15px; margin-bottom:10px; }
+.settings-scroll .settings-content h3 { font-size:.9375rem; }
+.settings-scroll .settings-content .section-heading { margin-bottom:10px; }
+.settings-scroll .readiness-row { padding:11px 0; border-bottom:1px solid var(--hairline); border-color:var(--divider); }
+.settings-scroll .keyboard-settings label { border-color:var(--divider); }
+.settings-scroll .settings-content > div > details { margin:0 0 16px; padding:12px 20px; border-radius:14px; background:var(--settings-card); }
+.settings-scroll .settings-meeting-notice { margin:0 0 16px; color:var(--muted); font-size:.875rem; }
+/* The page title already names these sections, so their first heading is kept for screen readers only. */
+.settings-scroll[data-section="setup"] .setup-section > h2,.settings-scroll[data-section="sharing"] .settings-content > div > section:first-child > h2,.settings-scroll[data-section="account"] .settings-content > div > .ui-section:first-child > .section-heading > h2 { position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+
+.settings-scroll[data-section="account"] .settings-content > div > .ui-section:first-child > .section-heading { margin:0; }
+
+/* Narrow windows: the panel fills the window with a small margin. */
+@media (max-width:900px) {
+  .settings-overlay { padding:44px 12px 12px; }
+  .settings-window { width:100%; height:100%; border-radius:18px; }
+  .settings-sidebar { width:200px; }
+  .settings-header { padding:22px 24px 12px; }
+  .settings-scroll { padding:4px 24px 28px; }
+}
+/* Below 620px: the section list, then the chosen section with Back, so neither is squeezed beside the other. */
+@media (max-width:620px) {
+  .settings-overlay { padding:44px 8px 8px; }
+  .settings-window { border-radius:16px; }
+  .settings-sidebar { width:100%; border-right:0; background:var(--surface); padding:18px 14px 14px; }
+  .settings-window[data-view="section"] .settings-sidebar,.settings-window[data-view="list"] .settings-main { display:none; }
+  .settings-sidebar-title { display:flex; align-items:center; justify-content:space-between; padding:0 0 0 10px; font-size:1.5rem; font-weight:700; letter-spacing:-.4px; }
+  .settings-sidebar-title .settings-close { margin:0; }
+  .settings-nav-item { min-height:40px; }
+  .settings-nav-chevron { display:block; }
+  .settings-header { flex-wrap:wrap; padding:14px 18px 10px; }
+  .settings-header h1 { flex-basis:100%; order:3; font-size:1.5rem; }
+  .settings-back { display:inline-flex; order:1; margin-right:auto; }
+  .settings-close { order:2; margin:0; }
+  .settings-scroll { padding:4px 16px 22px; }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@live-interview/service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node src/main.mjs",
+    "test": "node --test test/*.test.mjs",
+    "build": "node scripts/check.mjs",
+    "check": "node scripts/check.mjs",
+    "readiness": "node src/readiness.mjs"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "openid-client": "^6.8.8",
+    "stripe": "^23.0.0"
+  },
+  "devDependencies": {
+    "jose": "^6.2.3"
+  }
+}

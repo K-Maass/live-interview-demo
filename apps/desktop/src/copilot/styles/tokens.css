@@ -1,0 +1,104 @@
+:root { color-scheme:light dark; --radius:10px; --radius-lg:18px; --radius-pill:999px; --shadow-sm:0 1px 2px #0000000a,0 2px 8px #0000000d; --shadow-md:0 4px 14px #00000014,0 14px 36px #00000012; --font-ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",system-ui,sans-serif; font-family:var(--font-ui); font-synthesis:none; -webkit-font-smoothing:antialiased; --shell:#f3f3f4; --surface:#fff; --surface-raised:#fbfbfc; --ink:#1d1d1f; --ink-soft:#3a3a3c; --muted:#636368; --accent:#245e4c; --accent-soft:#e3eee8; --accent-line:#cfe0d5; --border:#e5e5e8; --hairline:#ececee; --fill:#efeff1; --error:#b3261e; --amber:#8a5a12; --blue:#1f5b96; --blue-soft:#e9f0f8; --now:#c2410c; --now-text:#b8400b; --control-border:#8e8e93; --placeholder:#6e6e73; --disabled-text:#5b6761; --disabled-fill:#eef1ee; --disabled-border:#d3dad5; --disabled-primary-text:#4c5852; --disabled-primary-fill:#dde3df;
+  --field:#fff; --on-accent:#fff; --accent-hover:#1c4e3d; --accent-outline:#a8c7b5; --focus-ring:#4d8c74; --focus-glow:#245e4c1f; --primary-shadow:#1a2e2226; --shadow-tint:#20362a;
+  --button-border:#d9d9dd; --hover:#f5f5f7; --hover-soft:#f2f2f4; --hover-strong:#e4e4e8; --nav-hover:#e8e8eb; --veil:#0000000a; --selected:#dfe9e4; --selected-text:#163c2d;
+  --card-border:#e0e0e3; --divider:#e4e4e7; --neutral-line:#c7c7cc; --control-line-soft:#dcdce0; --float-line:#e3e3e6; --card-hover-line:#d6d6db; --card-focus-line:#cfd9d3; --app-only-line:#a1a1a6; --track:#d2d2d7;
+  --panel-soft:#f6f6f7; --sidebar-soft:#f4f4f5; --tint-soft:#f7f9f7; --tint-hover:#f2f5f2; --stub:#f3f5f3; --code-soft:#fafbfa; --message-soft:#f8faf8; --guidance-first:#fbfdfc; --quote-line:#b9cbbf;
+  --feed-soft:#f5f7f5; --feed-line:#b6c4bb; --intent-line:#cbd8cf; --review-line:#c7d8cc; --review-soft:#fafcfb; --demo-soft:#edf2ee; --demo-text:#476153;
+  --notice-line:#b77b21; --notice-line-soft:#d6aa72; --notice-soft:#fff8ed; --success-soft:#eff6f1; --error-soft:#fff3f3; --confirm-soft:#fbf4f4;
+  --warning-soft:#fff4e5; --warning-text:#815614; --warning-line:#ecd7b4;
+  --stop-border:#e4bfc0; --stop-line:#d4b9ba; --danger:#c4001a; --danger-hover:#a50016; --on-danger:#fff; --rec:#d70015; --rec-line:#f1c9c4; --rec-soft:#fff6f5;
+  --dot-idle:#8b978f; --dot-active:#2a865e; --dot-unavailable:#b77618; --dot-paused:#9b7629; --dot-starting:#7c8b82; --meter-remote:#1f6fb5;
+  --switch-off:#e5e5ea; --switch-knob:#fff; --brand-tile:#fff;
+  --scrim:rgba(28,28,30,.26); --scrim-strong:rgba(28,28,30,.45); --sheet-scrim:#0000002e;
+  color:var(--ink); background:var(--shell); }
+/* The live widget floats over whatever is on screen, so it is always dark glass in both appearances: these tokens are not
+   redefined for dark mode on purpose (contrast is checked over white, grey, black and green backgrounds). */
+:root { --widget-ink:#fff; --widget-glass:rgba(14,23,31,.61); --widget-opaque:#202a33; --widget-edge:rgba(255,255,255,.19); --widget-line:#ffffff24; --widget-hover:#ffffff15; --widget-focus:#b5d9df; --widget-pin:#a0e2b0; --widget-actions:#26343dec; --widget-dot-active:#a8eebd; --widget-dot-unavailable:#ffd081; --widget-dot-paused:#f0e0a8; --widget-warning-strip:rgba(10,16,22,.35); --widget-warning-text:#ffe0ac; --widget-preview:#131c24; }
+/* Dark appearance: the same tokens, following System Settings › Appearance. Native controls and scrollbars follow
+   through color-scheme. Text tokens keep at least 4.5:1 and state marks 3:1 on their surfaces (contrast.test.ts). */
+@media (prefers-color-scheme:dark) {
+  :root { --shadow-sm:0 1px 2px #0000004d,0 2px 8px #00000040; --shadow-md:0 4px 14px #00000059,0 14px 36px #00000052;
+  --shell:#1c1c1e; --surface:#242426; --surface-raised:#2a2a2d; --ink:#f2f2f4; --ink-soft:#d6d6da; --muted:#a3a3aa; --accent:#6cc19d; --accent-soft:#1f3a30; --accent-line:#33584a; --border:#3a3a3d; --hairline:#313134; --fill:#333336; --error:#ff7b72; --amber:#e3b15f; --blue:#86b8ee; --blue-soft:#1d2c3e; --now:#ff7a3d; --now-text:#ff8f5c; --control-border:#7d7d84; --placeholder:#94949b; --disabled-text:#9ba49f; --disabled-fill:#2e3230; --disabled-border:#424845; --disabled-primary-text:#a7b1ab; --disabled-primary-fill:#343c38;
+  --field:#1c1c1e; --on-accent:#0b1f17; --accent-hover:#86d2b1; --accent-outline:#4f8a70; --focus-ring:#5fb592; --focus-glow:#6cc19d33; --primary-shadow:#00000066; --shadow-tint:#000;
+  --button-border:#4a4a4e; --hover:#303033; --hover-soft:#2e2e31; --hover-strong:#3a3a3e; --nav-hover:#343437; --veil:#ffffff0f; --selected:#25463a; --selected-text:#c4ead8;
+  --card-border:#3c3c40; --divider:#3a3a3d; --neutral-line:#5c5c62; --control-line-soft:#46464a; --float-line:#404044; --card-hover-line:#4c4c51; --card-focus-line:#3f5f52; --app-only-line:#7d7d84; --track:#4a4a4f;
+  --panel-soft:#2b2b2e; --sidebar-soft:#202022; --tint-soft:#272a28; --tint-hover:#2c312e; --stub:#2a2c2b; --code-soft:#202221; --message-soft:#262927; --guidance-first:#27292a; --quote-line:#46604f;
+  --feed-soft:#282b29; --feed-line:#4d6156; --intent-line:#3f5248; --review-line:#3f5a4a; --review-soft:#232725; --demo-soft:#233029; --demo-text:#b5d0c0;
+  --notice-line:#c7913e; --notice-line-soft:#8f6a35; --notice-soft:#2f2719; --success-soft:#1f3128; --error-soft:#3a2224; --confirm-soft:#33242a;
+  --warning-soft:#33291a; --warning-text:#f2c77f; --warning-line:#5c4628;
+  --stop-border:#6b3a3c; --stop-line:#6b3a3c; --danger:#c9302c; --danger-hover:#b02420; --on-danger:#fff; --rec:#ff453a; --rec-line:#6a3530; --rec-soft:#3a2220;
+  --dot-idle:#8e9a93; --dot-active:#46b585; --dot-unavailable:#d99a3e; --dot-paused:#c79d4b; --dot-starting:#8c9b92; --meter-remote:#5ea6e8;
+  --switch-off:#48484d; --switch-knob:#f2f2f4; --brand-tile:#fff;
+  --scrim:rgba(0,0,0,.45); --scrim-strong:rgba(0,0,0,.62); --sheet-scrim:#00000066; }
+}
+/* The main window uses desktop-dense Mac sizing; the live widget keeps the 16px base so it stays readable mid-call. */
+html:has(.app-shell) { font-size:14px; }
+* { box-sizing:border-box; }
+body { margin:0; }
+[hidden] { display:none!important; }
+button,input,textarea,select { font:inherit; }
+button { cursor:pointer; color:inherit; background:var(--surface); border:1px solid var(--button-border); border-radius:var(--radius-pill); padding:6px 14px; font-size:0.9375rem; font-weight:500; line-height:1.35; display:inline-flex; transition:background-color .12s,border-color .12s,box-shadow .12s; align-items:center; justify-content:center; gap:7px; min-height:32px; }
+button:hover:not(:disabled) { background:var(--hover); }
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible,[tabindex]:focus-visible { outline:2px solid var(--focus-ring); outline-offset:2px; }
+button.primary { color:var(--on-accent); background:var(--accent); border-color:var(--accent); font-weight:600; box-shadow:0 1px 2px var(--primary-shadow); }
+button.primary:hover:not(:disabled) { background:var(--accent-hover); }
+button.stop { color:var(--error); border-color:var(--stop-border); }
+button.stop:hover:not(:disabled) { background:var(--error-soft); }
+/* Disabled (#106): an explicit grey state rather than a faded copy of the enabled one, so the text keeps 4.5:1 and a disabled primary no longer reads as a pale green button. Kept after the variants above so it wins ties. */
+button:disabled { cursor:not-allowed; color:var(--disabled-text); background:var(--disabled-fill); border-color:var(--disabled-border); }
+button.primary:disabled,.pilot-feedback > button:disabled { color:var(--disabled-primary-text); background:var(--disabled-primary-fill); border-color:var(--disabled-border); }
+:is(.icon-button,.link-button,.breadcrumb button,.view-tabs button,.artifact-tabs button,.settings-nav-item,.knowledge-navigation button,.request-popover button,.controls-popover button):disabled { color:var(--disabled-text); background:transparent; border-color:transparent; }
+.widget-panel button:disabled { opacity:.48; color:var(--widget-ink); background:transparent; }
+button.link-button { border:0; padding:5px 0; color:var(--accent); background:transparent; min-height:28px; justify-content:flex-start; }
+.icon-button { min-width:32px; min-height:32px; padding:6px; border:0; background:transparent; flex-shrink:0; }
+button svg { flex-shrink:0; }
+h1,h2,h3,p { margin-top:0; }
+h1 { font-size:1.5rem; line-height:1.2; letter-spacing:-.4px; margin-bottom:4px; font-weight:700; overflow-wrap:anywhere; }
+h2 { font-size:1.1875rem; letter-spacing:-.25px; line-height:1.35; margin-bottom:12px; font-weight:700; }
+h3 { font-size:1rem; line-height:1.4; margin-bottom:6px; font-weight:600; }
+p { font-size:1rem; line-height:1.5; margin-bottom:14px; overflow-wrap:anywhere; }
+small,.muted { font-size:0.875rem; line-height:1.5; color:var(--muted); }
+label { display:block; font-size:0.9375rem; line-height:1.4; font-weight:500; margin-bottom:16px; }
+input,textarea,select { display:block; width:100%; min-width:0; color:var(--ink); background:var(--field); border:1px solid var(--control-border); border-radius:var(--radius); padding:8px 11px; margin-top:6px; font-size:1rem; line-height:1.45; transition:border-color .12s,box-shadow .12s; }
+input:focus,textarea:focus,select:focus { border-color:var(--focus-ring); box-shadow:0 0 0 3px var(--focus-glow); }
+textarea { min-height:88px; resize:vertical; }
+input[type="checkbox"] { width:17px; height:17px; margin:0; accent-color:var(--accent); flex-shrink:0; }
+.checkbox { display:flex; align-items:flex-start; gap:9px; font-weight:400; }
+.checkbox input { margin-top:2px; }
+input::placeholder,textarea::placeholder { color:var(--placeholder); }
+blockquote { margin:10px 0; padding:12px 14px; border-left:2px solid var(--quote-line); background:var(--tint-soft); font-size:0.9375rem; line-height:1.5; overflow-wrap:anywhere; }
+details > summary { padding-block:4px; }
+/* The heading takes focus only so a screen reader announces the new screen; it is not a control. */
+h1[tabindex]:focus,h1[tabindex]:focus-visible { outline:none; }
+details summary { cursor:pointer; font-size:0.875rem; line-height:1.45; color:var(--accent); }
+kbd { font:11px ui-monospace,monospace; color:var(--muted); white-space:nowrap; }
+.status-dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--dot-idle); flex-shrink:0; }
+.status-dot.active { background:var(--dot-active); }
+.status-dot.unavailable { background:var(--dot-unavailable); }
+.status-dot.paused { background:var(--dot-paused); }
+.status-dot.starting { background:var(--dot-starting); }
+.avatar { width:32px; height:32px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; background:var(--accent-soft); color:var(--accent); flex-shrink:0; font-size:0.75rem; font-weight:600; }
+.buttons,.section-heading { display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+.section-heading { margin-bottom:16px; }
+.section-heading h2 { margin:0; }
+.ui-section { border:0; border-bottom:1px solid var(--border); padding:0 0 26px; margin:0 0 26px; background:transparent; min-width:0; }
+.ui-section:last-child { border-bottom:0; }
+.stub-panel { padding:14px 16px; background:var(--stub); border-radius:4px; margin:18px 0; color:var(--muted); }
+.stub-title { display:flex; gap:10px; align-items:center; font-size:0.875rem; font-weight:500; }
+.stub-title span { font-size:0.75rem; font-weight:400; }
+.stub-panel p { font-size:0.8125rem; margin:6px 0 0; }
+.empty-state { padding:48px 24px; border:1px dashed var(--border); border-radius:var(--radius-lg); text-align:center; max-width:620px; margin:auto; }
+.empty-state h2 { font-size:1.375rem; }
+.empty-state p { color:var(--muted); }
+.notice { border-left:3px solid var(--notice-line); border-radius:0 var(--radius) var(--radius) 0; padding:12px 15px; background:var(--notice-soft); font-size:0.875rem; line-height:1.5; margin:12px 0; overflow-wrap:anywhere; }
+.notice.success { border-color:var(--accent); background:var(--success-soft); }
+.notice.error { border-color:var(--error); background:var(--error-soft); }
+.crash-preview { max-height:220px; overflow:auto; margin:8px 0; padding:8px 10px; font-size:0.75rem; line-height:1.4; white-space:pre-wrap; overflow-wrap:anywhere; background:var(--surface); border:1px solid var(--border); }
+.crash-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+.diff-preview { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.diff-preview pre,pre.derived-note { font:0.875rem/1.6 "DM Sans Variable",system-ui,sans-serif; white-space:pre-wrap; overflow-wrap:anywhere; border:1px solid var(--border); background:var(--code-soft); padding:16px; border-radius:4px; max-height:440px; overflow:auto; }
+.review { margin-top:20px; padding:20px; border:1px solid var(--review-line); border-radius:5px; background:var(--review-soft); }
+@media(max-width:600px){ h1{font-size:1.5625rem} .diff-preview{grid-template-columns:1fr} button{max-width:100%;white-space:normal} }
+@media(prefers-contrast:more){ :root{--border:#7a8a80;--muted:#3f4a44} button{border-color:var(--control-border)} }
+@media(prefers-contrast:more) and (prefers-color-scheme:dark){ :root{--border:#8a948e;--muted:#c4c4ca} }
+@media(prefers-reduced-motion:reduce){ *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important} }

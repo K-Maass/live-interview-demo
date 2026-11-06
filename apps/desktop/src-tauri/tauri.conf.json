@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Live Interview",
+  "version": "0.1.0",
+  "identifier": "com.karim.liveinterview.public",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1430",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Live Interview",
+        "width": 1000,
+        "height": 800,
+        "minWidth": 420,
+        "minHeight": 480,
+        "decorations": true,
+        "transparent": false,
+        "shadow": true
+      }
+    ],
+    "macOSPrivateApi": true,
+    "security": {
+      "csp": "default-src 'self'; style-src 'self' 'unsafe-inline'; connect-src ipc: http://ipc.localhost http://localhost:1430 ws://localhost:1430; img-src 'self' data:",
+      "assetProtocol": {
+        "enable": false,
+        "scope": []
+      }
+    }
+  },
+  "plugins": {},
+  "bundle": {
+    "active": true,
+    "createUpdaterArtifacts": false,
+    "targets": [
+      "app"
+    ],
+    "macOS": {
+      "entitlements": "entitlements.plist",
+      "signingIdentity": "-",
+      "hardenedRuntime": true,
+      "minimumSystemVersion": "14.2"
+    },
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "resources": [
+      "bin/local-speech",
+      "notices"
+    ]
+  }
+}

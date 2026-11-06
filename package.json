@@ -2,13 +2,26 @@
   "name": "live-interview-technical-preview",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=24" },
-  "workspaces": ["packages/core"],
+  "engines": {
+    "node": ">=24"
+  },
+  "workspaces": [
+    "apps/desktop",
+    "packages/core",
+    "apps/service"
+  ],
   "scripts": {
     "demo": "vite-node scripts/replay.ts",
-    "check": "npm run check --workspace @live-interview/core",
-    "test": "npm run test --workspace @live-interview/core && node --test apps/service/test/providers.test.mjs"
+    "check": "npm run check --workspace packages/core && npm run check --workspace apps/service && npm run build:ui",
+    "test": "npm run test --workspace packages/core && npm run test --workspace apps/desktop && node --test apps/service/test/providers.test.mjs apps/service/test/service.test.mjs && npm run speech:test",
+    "ui": "npm run dev --workspace apps/desktop -- --host 127.0.0.1",
+    "build:ui": "npm run build --workspace apps/desktop",
+    "build:mac": "node scripts/public/build.mjs candidate",
+    "speech:benchmark": "node scripts/speech-benchmark/run.mjs",
+    "speech:test": "node --test scripts/speech-benchmark/*.test.mjs"
   },
-  "dependencies": { "ajv": "8.20.0" },
-  "devDependencies": { "vite-node": "3.2.4" }
+  "devDependencies": {
+    "prettier": "^3.9.9",
+    "vite-node": "^3.2.4"
+  }
 }

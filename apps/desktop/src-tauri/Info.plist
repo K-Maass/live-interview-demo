@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Live Interview transcribes your microphone to provide live meeting assistance.</string>
+	<key>NSAudioCaptureUsageDescription</key>
+	<string>Live Interview captures system audio so the other meeting participants can be transcribed alongside your microphone.</string>
+	<key>NSAccessibilityUsageDescription</key>
+	<string>Live Interview uses Accessibility only to detect an active Microsoft Teams call by reading the labels of buttons in the Teams window, so it can offer to start recording. It does not read messages or other content.</string>
+<key>NSCalendarsFullAccessUsageDescription</key><string>Live Interview reads calendar context and applies only changes you explicitly review and approve.</string>
+</dict>
+</plist>

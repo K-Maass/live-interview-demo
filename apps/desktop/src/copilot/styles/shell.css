@@ -1,0 +1,98 @@
+/* Native Mac shell: a translucent-grey source list on the left, a white content area with a compact toolbar heading. */
+.app-shell { --sidebar-w:220px; --titlebar-h:40px; display:grid; grid-template-columns:var(--sidebar-w) minmax(0,1fr); grid-template-rows:var(--titlebar-h) minmax(0,1fr); height:100vh; height:100dvh; overflow:hidden; background:var(--shell); }
+/* One seamless bar in the sidebar colour: the macOS window buttons sit in it (overlay title bar), followed by the sidebar toggle. */
+.app-titlebar { grid-column:1 / -1; display:flex; align-items:center; gap:6px; padding:0 12px; background:var(--shell); -webkit-user-select:none; user-select:none; }
+.traffic-light-space { width:68px; height:100%; flex-shrink:0; }
+.titlebar-toggle { color:var(--muted); width:30px; height:28px; min-width:30px; min-height:28px; border-radius:8px; }
+.titlebar-toggle:hover:not(:disabled) { background:var(--hover-strong); color:var(--ink); }
+.app-sidebar { background:var(--shell); border-right:0; padding:4px 10px 12px; display:flex; flex-direction:column; min-height:0; overflow-y:auto; }
+.app-brand { display:flex; align-items:center; gap:9px; padding:2px 10px 18px; font-size:1rem; letter-spacing:-.2px; }
+.app-brand img { width:24px; height:24px; object-fit:contain; border-radius:6px; }
+.app-sidebar nav { display:flex; flex-direction:column; gap:14px; }
+.nav-group { display:flex; flex-direction:column; gap:1px; }
+.nav-group-label { font-size:.8125rem; font-weight:600; color:var(--muted); padding:4px 10px 3px; }
+.nav-item { width:100%; min-height:30px; justify-content:flex-start; border:0; padding:5px 10px; border-radius:8px; background:transparent; font-size:.9375rem; font-weight:400; gap:9px; color:var(--ink); }
+.nav-item svg { color:var(--accent); }
+.nav-item:hover:not(:disabled) { background:var(--nav-hover); }
+.nav-item.selected { background:var(--selected); color:var(--selected-text); font-weight:600; }
+.nav-count { margin-left:auto; font-size:.875rem; font-weight:400; color:var(--muted); font-variant-numeric:tabular-nums; }
+.nav-item.selected .nav-count { color:var(--accent); font-weight:500; }
+.sidebar-footer { margin-top:auto; padding-top:16px; display:flex; flex-direction:column; gap:6px; }
+.readiness-card { justify-content:flex-start; align-items:flex-start; text-align:left; gap:9px; padding:10px 11px; border:1px solid var(--card-border); border-radius:12px; background:var(--surface); font-weight:400; }
+.readiness-card > .status-dot { margin-top:5px; }
+.readiness-card strong { display:block; font-size:.9375rem; font-weight:600; }
+.readiness-card small { display:block; font-size:.8125rem; line-height:1.35; margin-top:1px; }
+.active-session-link { justify-content:flex-start; align-items:center; gap:9px; margin:0 0 14px; padding:9px 11px; border:1px solid var(--rec-line); border-radius:12px; background:var(--rec-soft); text-align:left; font-weight:600; font-size:.9375rem; }
+.active-session-link span:nth-child(2) { min-width:0; flex:1; }
+.active-session-link small { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:.8125rem; font-weight:400; color:var(--muted); }
+.recording-dot { width:8px; height:8px; border-radius:50%; background:var(--rec); box-shadow:0 0 0 3px color-mix(in srgb,var(--rec) 15%,transparent); flex-shrink:0; }
+.recording-dot.paused { background:var(--dot-paused); box-shadow:0 0 0 3px color-mix(in srgb,var(--dot-paused) 15%,transparent); }
+.app-main { min-width:0; height:100%; overflow-y:auto; background:var(--surface); position:relative; border-top-left-radius:14px; box-shadow:0 0 0 1px #0000000d,0 2px 10px #0000000d; }
+.page-heading { padding:16px 28px 14px; min-height:64px; display:flex; justify-content:space-between; align-items:center; gap:20px; border-bottom:1px solid var(--hairline); background:var(--surface); min-width:0; }
+.page-heading h1 { margin:0; font-size:1.3125rem; letter-spacing:-.3px; }
+.heading-copy { min-width:0; }
+.page-subtitle { color:var(--muted); font-size:.875rem; margin-top:2px; line-height:1.4; overflow-wrap:anywhere; }
+.page-actions { display:flex; flex-shrink:0; gap:8px; align-items:center; flex-wrap:wrap; }
+.breadcrumb { font-size:.875rem; margin-bottom:4px; }
+.breadcrumb button { border:0; background:transparent; padding:0; min-height:22px; font-size:.875rem; font-weight:500; color:var(--accent); gap:4px; }
+.breadcrumb button:hover:not(:disabled) { background:transparent; text-decoration:underline; }
+.page-body { padding:24px 28px; }
+.screen-frame { min-height:100%; }
+.mobile-navigation { display:none; }
+.skip-link { position:fixed; top:-60px; left:16px; z-index:100; background:var(--surface); border:1px solid var(--accent); padding:12px; color:var(--accent); }
+.skip-link:focus { top:8px; }
+.artifact-tabs,.view-tabs { display:flex; align-items:center; gap:4px; border-bottom:1px solid var(--hairline); padding:8px 28px; overflow-x:auto; }
+.artifact-tabs button,.view-tabs button { border:0; border-radius:var(--radius-pill); background:transparent; padding:5px 13px; min-height:30px; white-space:nowrap; font-size:.9375rem; font-weight:500; color:var(--ink-soft); }
+.artifact-tabs button:hover:not(:disabled),.view-tabs button:hover:not(:disabled) { background:var(--fill); }
+.artifact-tabs button.selected,.view-tabs button.selected { background:var(--selected); color:var(--selected-text); font-weight:600; }
+.live-return { margin:0; padding:9px 28px; border-bottom:1px solid var(--border); background:var(--accent-soft); display:flex; gap:12px; align-items:center; font-size:0.8125rem; }
+.live-return button { margin-left:auto; font-size:.875rem; padding:4px 12px; min-height:28px; }
+.global-message { padding:10px 32px; color:var(--muted); font-size:0.8125rem; border-bottom:1px solid var(--border); background:var(--message-soft); overflow-wrap:anywhere; }
+@media(max-width:1100px){ .app-shell{--sidebar-w:184px} .app-brand{font-size:1rem;gap:6px}.page-heading{padding:22px 26px}.page-body{padding:24px 26px}.page-actions{gap:7px}.page-heading{gap:16px}.artifact-tabs,.view-tabs{padding:0 26px;gap:20px} }
+@media(max-width:760px){ .page-heading{align-items:flex-start;flex-wrap:wrap;gap:14px}.page-actions{flex-shrink:1;flex-wrap:wrap}.page-body{padding:22px}.artifact-tabs,.view-tabs{padding:0 22px;gap:18px} }
+@media(max-width:620px){ .app-shell{display:flex;flex-direction:column}.mobile-navigation{display:flex;align-items:center;gap:12px;padding:9px 16px;border-bottom:1px solid var(--border);background:var(--shell);flex-shrink:0}.app-sidebar{display:none;position:fixed;top:calc(var(--titlebar-h) + 51px);bottom:0;left:0;width:230px;z-index:60;box-shadow:8px 0 24px color-mix(in srgb,var(--shadow-tint) 13%,transparent)}.app-sidebar.is-open{display:flex}.app-main{height:auto;flex:1;min-height:0}.page-heading{padding:20px}.page-body{padding:20px}.global-message,.live-return{padding:10px 20px}.artifact-tabs,.view-tabs{padding:0 20px} }
+
+.global-message {position:fixed;bottom:18px;right:18px;max-width:min(420px,calc(100vw - 36px));padding:11px 15px;border:1px solid var(--border);border-radius:6px;box-shadow:0 4px 16px color-mix(in srgb,var(--shadow-tint) 7%,transparent);z-index:40;background:var(--message-soft);}
+
+.live-return { align-items:flex-start; }
+.live-return >.status-dot { margin-top:6px; }
+.persistent-capture-detail { display:block;font-size:.75rem;margin-top:3px;overflow-wrap:anywhere; }
+.live-return p { font-size:.8125rem;margin:5px 0 0;color:var(--amber); }
+.detected-call { margin:12px 32px; }
+.visually-hidden { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; border:0; }
+
+.toast-stack {position:fixed;right:18px;bottom:18px;z-index:40;display:flex;flex-direction:column;align-items:flex-end;gap:8px;max-width:min(420px,calc(100vw - 36px));pointer-events:none}
+.toast {display:flex;align-items:center;gap:10px;padding:8px 8px 8px 16px;border:1px solid var(--border);border-radius:14px;background:var(--surface);box-shadow:var(--shadow-md);font-size:.9375rem;color:var(--ink);pointer-events:auto;overflow-wrap:anywhere;animation:toast-in .18s ease-out}
+.toast .icon-button {min-width:26px;min-height:26px;padding:4px;color:var(--muted)}
+@keyframes toast-in {from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.app-main:has(> div:not([hidden]) > .live-meeting-page) .toast-stack {bottom:76px}
+
+/* During a live meeting the sidebar folds to an icon rail closed by the recording mark, giving the call the room. */
+.app-shell.sidebar-compact,.app-shell.sidebar-compact[class] { --sidebar-w:64px; }
+.sidebar-compact .app-sidebar { padding:14px 0 12px; align-items:center; }
+.sidebar-compact .app-brand { padding:0 0 16px; }
+.sidebar-compact .app-brand strong,.sidebar-compact .nav-group-label,.sidebar-compact .nav-item > span,.sidebar-compact .readiness-card > span:not(.status-dot),.sidebar-compact .active-session-link > span:not(.recording-dot),.sidebar-compact .active-session-link > svg { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; }
+.sidebar-compact .app-sidebar nav { gap:4px; align-items:center; }
+.sidebar-compact .nav-group { align-items:center; gap:4px; }
+.sidebar-compact .nav-group + .nav-group { padding-top:8px; border-top:1px solid var(--card-border); }
+.sidebar-compact .nav-item { width:40px; height:40px; min-height:40px; padding:0; justify-content:center; border-radius:12px; }
+.sidebar-compact .nav-item svg { width:19px; height:19px; }
+.sidebar-compact .active-session-link { width:40px; height:40px; padding:0; justify-content:center; margin:0 0 12px; }
+.sidebar-compact .recording-dot { width:10px; height:10px; box-shadow:0 0 0 4px color-mix(in srgb,var(--rec) 16%,transparent); }
+.sidebar-compact .sidebar-footer { align-items:center; }
+.sidebar-compact .readiness-card { width:40px; height:40px; padding:0; justify-content:center; align-items:center; border-radius:12px; }
+.sidebar-compact .readiness-card > .status-dot { margin:0; }
+@media(max-width:1100px){ .app-shell.sidebar-compact { --sidebar-w:64px; } }
+/* The recording mark is just a pulsing red dot: no box around it in the folded sidebar. */
+.recording-dot:not(.paused) { animation:rec-pulse 1.6s ease-out infinite; }
+@keyframes rec-pulse { 0% { box-shadow:0 0 0 0 color-mix(in srgb,var(--rec) 45%,transparent); } 70% { box-shadow:0 0 0 9px color-mix(in srgb,var(--rec) 0%,transparent); } 100% { box-shadow:0 0 0 0 color-mix(in srgb,var(--rec) 0%,transparent); } }
+.sidebar-compact .active-session-link { border:0; background:transparent; box-shadow:none; }
+.sidebar-compact .active-session-link:hover:not(:disabled) { background:var(--nav-hover); }
+.sidebar-compact .recording-dot { width:12px; height:12px; }
+/* Logo slot a little larger; the readiness card is a single line. */
+.app-brand img { width:30px; height:30px; border-radius:8px; }
+.app-brand { font-size:1.0714rem; }
+.readiness-card { align-items:center; }
+.readiness-card > .status-dot { margin-top:0; }
+/* With the date tile leading the heading, the space above and to the left of it is equal. */
+.page-heading:has(> .heading-date) { padding:16px 28px 16px 16px; }

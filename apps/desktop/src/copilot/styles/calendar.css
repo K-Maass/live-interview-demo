@@ -1,0 +1,271 @@
+/* Calendar Week and Month (#123). Components live in src/copilot/calendar/.
+   Colour on a meeting means brief readiness only: ready = accent, draft = blue, none = outlined grey, unsynced = dashed.
+   Hatching means one thing: the calendar is not loaded for that date. The orange line is always "now".
+   No shadows on cards, no gradients except the hatch and hour lines, status is coloured text.
+   Sizes are rem so a larger text size scales the grid. Every calendar button resets the global button rule
+   (999px radius, 32px minimum height, centred content). */
+
+.cal { --hour-h: 3.43rem; min-width: 0; }
+
+/* ---- Reset of the global button rule for every calendar button ---- */
+.cal button:is(.cal-event, .cal-day-head, .cal-month-date, .cal-month-more, .cal-more, .cal-bar-more) {
+  display: flex; align-items: flex-start; justify-content: flex-start; gap: 0; min-height: 0; padding: 0; border: 0; border-radius: 0;
+  background: transparent; color: inherit; font-size: .75rem; font-weight: 400; line-height: 1.3; text-align: left; white-space: normal; transition: none; max-width: none;
+}
+/* Focus ring from tokens.css (2px var(--focus-ring)), drawn inside the element so scrolling and sticky parents cannot clip it. */
+.cal button:is(.cal-event, .cal-day-head, .cal-more, .cal-bar-more, .cal-month-more, .cal-join):focus-visible { outline: 2px solid var(--focus-ring); outline-offset: -2px; }
+.cal .cal-month-date:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 1px; }
+
+/* ---- Toolbar and status ---- */
+.cal-toolbar { margin-bottom: .75rem; }
+.cal-toolbar-main { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.cal-toolbar h2 { margin: 0 0 0 .5rem; font-size: 1.0625rem; letter-spacing: -.2px; }
+.cal-status { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .5rem; min-height: 1.25rem; margin: .25rem 0 0; font-size: .875rem; line-height: 1.4; color: var(--muted); }
+.cal-status-warn { color: var(--amber); font-weight: 600; }
+.cal-status-error { color: var(--error); font-weight: 600; }
+.cal-status button.link-button { min-height: 0; padding: 0; }
+.cal-legend { margin: .5rem 0 0; font-size: .8125rem; }
+
+/* ---- Unloaded days: hatch over the raised surface; partial is lighter ---- */
+.cal :is(.cal-col, .cal-allday-cell, .cal-month-cell).cov-missing { --hatch: repeating-linear-gradient(135deg, transparent 0 6px, var(--border) 6px 7px); background-color: var(--surface-raised); }
+.cal :is(.cal-col, .cal-allday-cell, .cal-month-cell).cov-partial { --hatch: repeating-linear-gradient(135deg, transparent 0 8px, var(--hairline) 8px 9px); background-color: var(--surface-raised); }
+.cal-cov { font-size: .6875rem; line-height: 1.3; color: var(--muted); }
+.cal-cov.cov-partial { color: var(--amber); }
+
+/* ---- Today marker shared by Week and Month: a filled accent circle on the date ---- */
+.cal-date-num { display: inline-flex; align-items: center; justify-content: center; min-width: 1.75rem; height: 1.75rem; border-radius: 50%; font-size: 1rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.is-today .cal-date-num { background: var(--accent); color: var(--on-accent); }
+
+/* ---- Meeting blocks (one button each) ---- */
+.cal button.cal-event {
+  --edge: var(--control-border); --fill-c: var(--surface); --ring: var(--fill-c);
+  display: flex; flex-direction: column; box-sizing: border-box; overflow: hidden;
+  background: var(--fill-c); border: 1px solid var(--border); border-left: 3px solid var(--edge); border-radius: 4px; color: var(--ink);
+}
+.cal button.cal-event.tone-ready { --edge: var(--accent); --fill-c: var(--accent-soft); border-block-color: var(--fill-c); border-right-color: var(--fill-c); }
+.cal button.cal-event.tone-draft { --edge: var(--blue); --fill-c: var(--blue-soft); border-block-color: var(--fill-c); border-right-color: var(--fill-c); }
+.cal button.cal-event.tone-none { --edge: var(--control-border); --fill-c: var(--surface); }
+.cal button.cal-event.tone-unsynced { --edge: var(--control-border); --fill-c: var(--surface); border: 1px dashed var(--control-border); border-left: 3px dashed var(--control-border); }
+.cal button.cal-event.is-past { --fill-c: var(--surface-raised); color: var(--muted); }
+.cal button.cal-event.tone-ready.is-past, .cal button.cal-event.tone-draft.is-past { border-block-color: var(--border); border-right-color: var(--border); }
+.cal button.cal-event:hover:not([aria-disabled="true"]) { background: color-mix(in srgb, var(--fill-c), var(--ink) 6%); }
+.cal button.cal-event[aria-disabled="true"] { cursor: default; }
+.cal button.cal-event.cont-before { border-top-left-radius: 0; border-top-right-radius: 0; }
+.cal button.cal-event.cont-after { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.cal-ev-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; min-width: 0; font-size: .75rem; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.cal-ev-time { max-width: 100%; overflow: hidden; text-overflow: ellipsis; font-size: .6875rem; line-height: 1.3; color: var(--ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.is-past .cal-ev-time { color: var(--muted); }
+.cal-ev-repeat { display: inline-block; margin-left: .25rem; vertical-align: -1px; color: var(--muted); }
+.cal-ev-ready { min-width: 0; font-size: .6875rem; font-weight: 500; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
+.cal-ev-ready.tone-ready { color: var(--accent); }
+.cal-ev-ready.tone-draft { color: var(--blue); }
+.cal-ev-foot { align-self: stretch; display: flex; align-items: center; justify-content: space-between; gap: .25rem; margin-top: auto; min-width: 0; }
+
+/* Week blocks: positioned by the view (top, height, left, width) */
+.cal button.cal-event.v-week { position: absolute; gap: .0625rem; padding: .125rem .375rem; }
+.cal button.cal-event.v-week.tier-line .cal-ev-title { -webkit-line-clamp: 1; }
+.cal button.cal-event.v-week.tier-two { container: cal-block / size; }
+/* A two-line block shorter than time + two title lines clamps the title to one line, so it ends in an ellipsis instead of being cut. */
+@container cal-block (max-height: 3.2rem) { .cal-event.tier-two .cal-ev-title { -webkit-line-clamp: 1; } }
+.cal button.cal-event.v-week.tier-full { container: cal-block / inline-size; }
+/* A full block too narrow for its readiness words and the avatars drops the avatars (the names stay in the accessible name). */
+@container cal-block (max-width: 9rem) { .cal-event.tier-full .cal-avatars { display: none; } }
+.cal button.cal-event.v-week.is-narrow .cal-ev-title { text-overflow: ellipsis; }
+.cal button.cal-event.v-week.tier-line { flex-direction: row; align-items: center; gap: .375rem; }
+.cal button.cal-event.v-week.tier-line .cal-ev-title { display: block; flex: 1; white-space: nowrap; text-overflow: ellipsis; }
+.cal button.cal-event.v-week.is-bar { position: static; margin: 1px 2px; min-height: 1.375rem; justify-content: center; }
+.cal button.cal-event.v-week.is-bar .cal-ev-title { -webkit-line-clamp: 1; }
+.cal button.cal-more { align-items: center; justify-content: center; border: 1px solid var(--control-border); border-radius: 4px; background: var(--surface); position: absolute; }
+.cal button.cal-more:hover { background: var(--fill); }
+
+/* Month entries: 1.5rem rows */
+.cal button.cal-event.v-month { flex-direction: row; align-items: center; flex: none; gap: .25rem; height: 1.5rem; padding: 0 .375rem; }
+.cal button.cal-event.v-month { container-type: inline-size; }
+.cal button.cal-event.v-month .cal-ev-title { display: block; flex: 1; -webkit-line-clamp: unset; white-space: nowrap; text-overflow: ellipsis; font-weight: 400; }
+/* Title first, time after it as muted text that never shrinks; in Month the time drops out below 140 px (8.75 rem) so the title keeps the width. */
+.cal-ev-when { flex: none; font-size: .6875rem; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+@container (max-width: 8.75rem) { .cal-ev-when { display: none; } }
+.cal button.cal-event.v-month.is-bar .cal-ev-title { font-weight: 600; }
+.cal button.cal-event.v-month .cal-ev-repeat { margin: 0; flex: none; }
+
+/* Drawer rows */
+.cal button.cal-event.v-drawer { flex: 1; flex-direction: row; align-items: center; gap: .75rem; min-width: 0; padding: .5rem .625rem; border-radius: 6px; }
+.cal-ev-main { display: flex; flex-direction: column; flex: 1; min-width: 0; gap: .0625rem; }
+.v-drawer .cal-ev-time { flex: none; width: 7rem; font-size: .8125rem; white-space: normal; }
+.v-drawer .cal-ev-title { font-size: .9375rem; }
+.v-drawer .cal-ev-ready { font-size: .8125rem; }
+
+/* ---- Avatars (ui.tsx Avatar resized) ---- */
+.cal-avatars { --av: 1.43rem; display: inline-flex; align-items: center; flex: none; }
+.cal-avatars.size-month { --av: 1.29rem; }
+.cal-avatars.size-today { --av: 1.71rem; }
+.cal-avatars .avatar { width: var(--av); height: var(--av); font-size: .5625rem; font-weight: 600; background: var(--fill); color: var(--ink-soft); box-shadow: 0 0 0 2px var(--ring, var(--surface)); }
+.cal-avatars.size-today .avatar { font-size: .625rem; }
+.cal-avatars > * + * { margin-left: -.125rem; }
+.cal-avatars > .cal-avatars-more { margin-left: .25rem; font-size: .625rem; font-weight: 600; color: var(--ink-soft); }
+
+/* ---- Week ---- */
+.cal-week-scroll { position: relative; overflow: auto; max-height: max(26rem, min(calc(100dvh - 21rem), 64rem)); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+.cal-week { min-width: 46rem; }
+.cal-week-sticky { position: sticky; top: 0; z-index: 4; background: var(--surface); border-bottom: 1px solid var(--border); }
+.cal-week-head, .cal-allday, .cal-week-body { display: grid; grid-template-columns: var(--gutter-w, 3.75rem) repeat(var(--cols, 7), minmax(0, 1fr)); }
+.cal-gutter-cell, .cal-gutter { position: sticky; left: 0; z-index: 3; background: var(--surface); }
+.cal-col-head { display: flex; flex-direction: column; align-items: center; gap: .125rem; min-width: 0; padding: .25rem 0 .375rem; border-left: 1px solid var(--border); }
+.cal button.cal-day-head { flex-direction: column; align-items: center; padding: .125rem .75rem; }
+.cal button.cal-day-head:hover { background: var(--fill); }
+.cal-wd { font-size: .75rem; color: var(--muted); }
+.cal-col-head.is-today .cal-wd { color: var(--accent); font-weight: 600; }
+.cal-allday { padding-bottom: .125rem; border-top: 1px solid var(--hairline); }
+.cal-allday-label { grid-column: 1; align-self: start; padding: .3125rem .5rem 0 0; font-size: .6875rem; color: var(--muted); text-align: right; }
+.cal-allday-cell { border-left: 1px solid var(--border); background-image: var(--hatch, none); }
+.cal button.cal-bar-more { align-self: start; margin: 1px 2px; padding: .125rem .375rem; color: var(--accent); text-decoration: underline; font-weight: 500; }
+.cal-gutter { position: sticky; height: calc(var(--hour-h) * 24); }
+.cal-hour-label.is-near-now { visibility: hidden; }
+.cal-hour-label { position: absolute; right: .5rem; transform: translateY(-50%); font-size: .6875rem; line-height: 1; color: var(--muted); font-variant-numeric: tabular-nums; }
+.cal-now-time { position: absolute; right: .25rem; z-index: 1; transform: translateY(-50%); padding: 0 .25rem; background: var(--surface); font-size: .6875rem; font-weight: 700; line-height: 1.2; color: var(--now-text); font-variant-numeric: tabular-nums; }
+.cal-col {
+  position: relative; height: calc(var(--hour-h) * 24); border-left: 1px solid var(--border);
+  background-image: var(--hatch, none), repeating-linear-gradient(to bottom, transparent 0 calc(var(--hour-h) - 1px), var(--hairline) calc(var(--hour-h) - 1px) var(--hour-h));
+}
+.cal-now-line { position: absolute; left: 0; right: 0; z-index: 1; height: 0; border-top: 2px dotted var(--now); pointer-events: none; }
+.cal-now-line::before { content: ""; position: absolute; left: -4px; top: -5px; width: 8px; height: 8px; border-radius: 50%; background: var(--now); }
+
+/* ---- Month ---- */
+.cal-month-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.cal-month { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.cal-month-weekday { padding: .5rem; text-align: center; font-size: .75rem; color: var(--muted); border-bottom: 1px solid var(--border); }
+.cal-month-cell { position: relative; display: flex; flex-direction: column; gap: 2px; height: 8.5rem; min-width: 0; padding: .25rem; overflow: hidden; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); background-image: var(--hatch, none); }
+.cal-month-cell:nth-child(7n) { border-right: 0; }
+.cal-month-cell:nth-last-child(-n + 7) { border-bottom: 0; }
+.cal-month-cell.is-today { outline: 2px solid var(--accent); outline-offset: -2px; }
+.cal-month-top { display: flex; align-items: center; gap: .375rem; min-height: 1.75rem; flex: none; }
+.cal button.cal-month-date { align-items: center; justify-content: center; border-radius: 50%; }
+.cal button.cal-month-date:hover .cal-date-num { background: var(--fill); }
+.cal-month-cell.is-today .cal-month-date:hover .cal-date-num { background: var(--accent); }
+.cal-month-cell.is-outside .cal-date-num { color: var(--muted); font-weight: 400; }
+.cal-month-cell.is-outside.is-today .cal-date-num { color: var(--on-accent); }
+.cal button.cal-month-more { flex: none; align-items: center; min-height: 1.25rem; padding: 0 .375rem; color: var(--accent); text-decoration: underline; font-weight: 500; }
+.cal button.cal-month-more:hover { background: var(--fill); }
+
+/* ---- Day drawer (reuses .guidance-drawer) ---- */
+.cal-drawer .drawer-heading { align-items: center; padding-bottom: .75rem; margin-bottom: 1rem; }
+.cal-drawer .drawer-heading h2 { margin: 0; font-size: 1.25rem; }
+.cal-drawer h3 { margin: 1.25rem 0 .375rem; font-size: .8125rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.cal-drawer-list { display: flex; flex-direction: column; gap: .375rem; margin: 0; padding: 0; list-style: none; }
+.cal-drawer-row { display: flex; align-items: stretch; gap: .5rem; }
+.cal-drawer .cal-notice { margin: 0 0 1rem; }
+.cal-drawer .cal-show-week { margin-top: 1.25rem; }
+
+/* ---- Join: always its own button ---- */
+.cal button.cal-join {
+  display: inline-flex; align-items: center; align-self: center; flex: none; gap: .25rem; min-height: 1.75rem; padding: .25rem .5rem;
+  border: 1px solid var(--border); border-radius: 6px; background: var(--surface); color: var(--ink); font-size: .75rem; font-weight: 500; line-height: 1.2; white-space: nowrap; transition: none;
+}
+.cal button.cal-join:hover:not([aria-disabled="true"]) { background: var(--fill); }
+.cal button.cal-join.is-soon { border-color: var(--accent); color: var(--accent); }
+.cal button.cal-join[aria-disabled="true"] { cursor: not-allowed; color: var(--disabled-text); background: var(--disabled-fill); border-color: var(--disabled-border); }
+
+/* ---- Today view (added by the Today worker) ---- */
+/* No calendar to read (CalendarSetupNotice): one calm, rounded panel with an outline icon; plain text, no hatch. */
+.calendar-setup { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1rem; margin: 12px 0 16px; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface-raised); }
+.calendar-setup-icon { flex-shrink: 0; color: var(--accent); }
+.calendar-setup-text { flex: 1 1 18rem; min-width: 0; }
+.calendar-setup-text h2 { margin: 0 0 2px; font-size: .9375rem; line-height: 1.35; letter-spacing: 0; }
+.calendar-setup-text p { margin: 0; font-size: .875rem; line-height: 1.45; color: var(--muted); }
+.calendar-setup-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.cal-status-reason { color: var(--ink-soft); }
+
+/* ---- Meeting page day panel (MeetingDayPanel.tsx, DayTimeline with `meetings`) ----
+   One card: header (‹ day › Today), the day's timeline, a review card for a calendar change, then the page's footer.
+   This meeting is green; others are outlined; read-only ones carry a lock. The old place of a meeting being changed
+   is dashed. The past is shaded and takes no drops. Blocks settle in about 120 ms, instantly with reduced motion. */
+.dp { display: flex; flex-direction: column; gap: .5rem; width: 100%; min-width: 0; min-height: 0; max-height: 100%; padding: .625rem; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
+.dp-header { display: flex; align-items: center; gap: .125rem; min-width: 0; }
+.dp-date-anchor { position: relative; flex: 1; min-width: 0; display: flex; justify-content: center; }
+.dp button.dp-date { min-height: 1.875rem; max-width: 100%; padding: .25rem .625rem; border: 0; border-radius: 8px; background: transparent; font-size: .9375rem; font-weight: 600; letter-spacing: -.1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dp button.dp-date:hover, .dp button.dp-date[aria-expanded="true"] { background: var(--fill); }
+.dp button.dp-today { min-height: 1.75rem; margin-left: .25rem; padding: .1875rem .75rem; border-color: var(--border); font-size: .8125rem; }
+.dp button.dp-today:disabled { color: var(--muted); background: transparent; border-color: var(--hairline); }
+.dp-month { position: absolute; top: calc(100% + 4px); left: 50%; z-index: 20; width: 17.5rem; transform: translateX(-50%); border-radius: 14px; box-shadow: var(--shadow-md); }
+.dp-month .month-picker { border-color: var(--hairline); border-radius: 14px; padding: 4px 4px 6px; }
+.dp-month button.month-picker-day { min-height: 2.125rem; }
+.dp-month .month-picker-day .cal-date-num { min-width: 1.875rem; font-size: .875rem; }
+
+.dp-note { margin: 0; padding: 0 .25rem; font-size: .8125rem; line-height: 1.45; color: var(--muted); }
+.dp-note.is-warn { color: var(--ink-soft); }
+.dp-note.is-hint { color: var(--accent); font-weight: 500; }
+.dp-note button.link-button { min-height: 0; padding: 0; font-size: inherit; font-weight: 500; }
+
+/* The timeline fills the panel; the page decides the panel's height. */
+.dp .dp-timeline { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 15rem; border-color: var(--hairline); border-radius: 12px; }
+.dp .dp-timeline .day-timeline-scroll { flex: 1 1 auto; height: auto; min-height: 13rem; }
+.dp-allday { display: flex; align-items: flex-start; gap: .5rem; padding: .375rem .5rem .375rem 0; border-bottom: 1px solid var(--hairline); }
+.dp-allday-label { flex: none; width: 2.75rem; padding-top: .1875rem; font-size: .6875rem; line-height: 1.2; color: var(--muted); text-align: right; }
+.dp-allday-items { display: flex; flex-wrap: wrap; gap: .25rem; min-width: 0; flex: 1; }
+.dp-allday-item { display: inline-flex; align-items: center; gap: .25rem; max-width: 100%; min-height: 1.375rem; padding: 0 .5rem; border: 1px solid var(--border); border-radius: 6px; background: var(--surface-raised); font-size: .75rem; font-weight: 500; line-height: 1.2; color: var(--ink-soft); cursor: pointer; }
+.dp-allday-item > span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.dp-allday-item:hover { background: var(--fill); }
+.dp-allday-item.is-this { border-color: var(--accent-line); background: var(--accent-soft); color: var(--accent); cursor: default; }
+.dp-allday-item:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 1px; }
+
+.dp-track { cursor: default; }
+.dp-track.can-draw { cursor: cell; }
+.dp-past { position: absolute; top: 0; left: -.75rem; right: -12px; z-index: 0; background: color-mix(in srgb, var(--fill) 60%, transparent); pointer-events: none; }
+
+.dp-meeting {
+  --edge: var(--control-border); --tint: var(--surface);
+  position: absolute; z-index: 1; display: flex; flex-direction: column; gap: 1px; box-sizing: border-box; min-width: 0; padding: 2px 7px 2px 8px; overflow: hidden;
+  border: 1px solid var(--border); border-left: 3px solid var(--edge); border-radius: 6px; background: var(--tint); color: var(--ink); cursor: pointer; user-select: none; -webkit-user-select: none;
+  transition: top .12s ease-out, height .12s ease-out, background-color .12s;
+}
+.dp-meeting:hover { background: color-mix(in srgb, var(--tint), var(--ink) 5%); }
+.dp-meeting:focus-visible { z-index: 3; outline: 2px solid var(--focus-ring); outline-offset: 1px; }
+.dp-meeting.is-this { --edge: var(--accent); --tint: var(--accent-soft); z-index: 2; border-color: var(--accent-line); border-left-color: var(--edge); color: var(--accent); cursor: default; }
+.dp-meeting.is-movable { cursor: grab; }
+.dp-meeting.is-locked { --tint: var(--surface-raised); color: var(--ink-soft); }
+.dp-meeting.is-past:not(.is-this) { --tint: var(--surface-raised); color: var(--muted); }
+.dp-meeting.is-pending { z-index: 4; }
+.dp-meeting.is-dragging { z-index: 5; cursor: grabbing; box-shadow: var(--shadow-md); transition: none; }
+.dp-meeting-title { display: flex; align-items: center; gap: .25rem; min-width: 0; font-size: .75rem; font-weight: 600; line-height: 1.3; }
+.dp-meeting-title > span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.dp-meeting-time { font-size: .6875rem; line-height: 1.3; color: var(--ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dp-meeting:not(.is-short) .dp-meeting-time { white-space: normal; }
+.dp-meeting.is-this .dp-meeting-time { color: var(--accent); }
+.dp-meeting.is-past .dp-meeting-time, .dp-meeting.is-locked .dp-meeting-time { color: var(--muted); }
+.dp-meeting.is-short { flex-direction: row; align-items: center; gap: .375rem; padding-block: 0; }
+.dp-meeting.is-short .dp-meeting-title { flex: 0 1 auto; }
+.dp-meeting.is-short .dp-meeting-time { flex: 0 10 auto; }
+.dp-lock { flex: none; color: var(--muted); }
+/* Both edges resize; the grip bar shows on hover and focus. */
+.dp-grip { position: absolute; left: 0; right: 0; height: 7px; cursor: ns-resize; }
+.dp-grip-start { top: 0; }
+.dp-grip-end { bottom: 0; }
+.dp-grip::after { content: ""; position: absolute; left: 50%; width: 18px; height: 2px; margin-left: -9px; border-radius: 2px; background: var(--edge); opacity: 0; transition: opacity .12s; }
+.dp-grip-start::after { top: 2px; }
+.dp-grip-end::after { bottom: 2px; }
+.dp-meeting:is(:hover, :focus-visible, .is-dragging) .dp-grip::after { opacity: 1; }
+.dp-ghost { position: absolute; z-index: 3; box-sizing: border-box; border: 1.5px dashed var(--control-border); border-radius: 6px; background: transparent; pointer-events: none; transition: top .12s ease-out, height .12s ease-out; }
+.dp-more { position: absolute; z-index: 1; display: flex; align-items: flex-start; justify-content: center; box-sizing: border-box; padding-top: 2px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); font-size: .6875rem; font-weight: 600; color: var(--ink-soft); }
+
+.dp-status { display: flex; flex-direction: column; gap: .125rem; padding: 0 .25rem; }
+.dp-status:empty { display: none; }
+.dp-overlap, .dp-notice { margin: 0; font-size: .8125rem; line-height: 1.4; }
+.dp-overlap { color: var(--muted); }
+.dp-notice { color: var(--ink-soft); }
+
+/* The review card for a calendar change: at the bottom of the panel, not a sheet. */
+.dp-review { display: flex; flex-direction: column; gap: .375rem; padding: .75rem .875rem; border: 1px solid var(--accent-line); border-radius: 12px; background: var(--surface-raised); }
+.dp-review h3 { margin: 0; font-size: .9375rem; line-height: 1.35; }
+.dp-review p { margin: 0; font-size: .8125rem; line-height: 1.45; }
+.dp-review-change { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .375rem; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+.dp-review-from { color: var(--muted); }
+.dp-review-change strong { color: var(--ink); font-weight: 600; }
+.dp-review-note { color: var(--muted); }
+.dp-review-note.is-warn { color: var(--blue); }
+.dp-review-actions { display: flex; justify-content: flex-end; gap: .5rem; margin-top: .25rem; }
+.dp-review-actions button { min-height: 1.875rem; padding: .25rem .875rem; font-size: .8125rem; }
+.dp-footer { display: flex; flex-direction: column; gap: .5rem; padding: .25rem .25rem 0; border-top: 1px solid var(--hairline); }
+
+@media (prefers-reduced-motion: reduce) {
+  .dp-meeting, .dp-ghost, .dp-grip::after { transition: none; }
+}

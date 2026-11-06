@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Apple lists this under the Hardened Runtime "Resource Access" entitlements. The helper is the
+	     only binary that calls EventKit (CalendarWorker.swift, requestFullAccessToEvents), and
+	     entitlements are added per executable, so only the helper carries it. The usage string
+	     (NSCalendarsFullAccessUsageDescription) stays in the app's Info.plist. -->
+	<key>com.apple.security.personal-information.calendars</key>
+	<true/>
+</dict>
+</plist>

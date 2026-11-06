@@ -1,0 +1,1 @@
+WhisperKit 1.1.0 is pinned in Package.swift and Package.resolved. LocalTokenizer.swift adapts the upstream tokenizer wrapper to load only explicitly installed local files. The MIT licence and upstream notices are retained here so they remain available outside a generated dependency checkout. SwiftPM resolves the remaining dependencies with their original licences.

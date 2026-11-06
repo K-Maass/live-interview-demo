@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Microphone capture (cpal) and the Core Audio system-audio process tap. -->
+	<key>com.apple.security.device.audio-input</key>
+	<true/>
+	<!-- Allow the JIT/dynamic codegen the webview needs under hardened runtime. -->
+	<key>com.apple.security.cs.allow-jit</key>
+	<true/>
+	<!-- EventKit runs in the Swift helper, but under the hardened runtime tccd checks the responsible app, not
+	     only the helper. Without this key tccd logs "service: kTCCServiceCalendar requires entitlement
+	     com.apple.security.personal-information.calendars but it is missing for responsible={com.karim.liveinterview.public}"
+	     and never shows the calendar prompt (observed 17 Oct 2026). The helper carries it too. -->
+	<key>com.apple.security.personal-information.calendars</key>
+	<true/>
+
+</dict>
+</plist>

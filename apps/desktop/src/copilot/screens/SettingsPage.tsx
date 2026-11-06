@@ -1,0 +1,50 @@
+import { detectionStatusText } from "../presentation/model";
+import { ArrowRight } from "lucide-react";
+import type { CopilotController } from "../useCopilotController";
+import type { AppLocation, SettingsSection } from "../presentation/types";
+import { Section, StubPanel } from "../ui";
+import { unavailableDuringMeeting } from "../presentation/settingsOverlay";
+import { native } from "../../lib/localVoice";
+import { ShortcutSettings } from "../ShortcutSettings";
+import { CalendarChangeReview } from "../CalendarChangeReview";
+import { PublicUpdates } from "../../lib/productUpdates";
+import { PublicAccountSettings, PublicReasoningSettings, PublicCalendarSettings } from "./PublicSettings";
+import { SharingSettings } from "../SharingSettings";
+import { ModelProgress, SetupSection } from "../SetupChecklist";
+import type { Setup } from "../useSetup";
+import { SpeechWarmupNotice } from "../SpeechWarmupNotice";
+import { describeModelSetup, describeSetupFailure } from "../../lib/public/modelSetup";
+import { speechStatusText } from "../../lib/public/speechWarmup";
+import { useLiveFrames } from "../liveStore";
+/** The live frame counts: the only part of Settings that follows each 500 ms frame report. */
+function FrameCounts({ controller: c }: { controller: CopilotController }) {
+  const frames = useLiveFrames(c);
+  return <p className="muted">Microphone frames: {frames.me ?? 0} · System audio frames: {frames.remote ?? 0}</p>;
+}
+
+const languageName = (code: string) => { try { return new Intl.DisplayNames(["en"], { type: "language" }).of(code) ?? code; } catch { return code; } };
+function translationStatus(ready: CopilotController["ready"]) {
+  const t = ready?.translation;
+  if (!t) return "Checking…";
+  if (t.experimentalMedium && t.mediumAssetsReady && t.installedSources.length === 0) return "Experimental route only";
+  if (!t.appleAvailable) return "Needs macOS 26 · translation pending";
+  if (t.installedSources.length === 0) return "No language pairs installed · translation pending";
+  return "Ready for " + t.installedSources.map(languageName).join(", ");
+}
+/**
+ * The content of each Settings section, shown inside the Settings window (`shell/SettingsDialog`). Every section stays
+ * mounted and is hidden when another is selected, so a download, a form or a confirmation keeps its state while the
+ * person looks elsewhere.
+ */
+export function SettingsSections({ controller: c, section, navigate, setup }: { controller: CopilotController; section: SettingsSection; navigate: (location: AppLocation) => void; setup: Setup }) {
+  const d = c.entry.detectionDiagnostics;
+  const setupRunning = c.modelSetup.phase === "running";
+  return <div className="settings-content">
+    {setup.active && <div hidden={section !== "setup"}><SetupSection setup={setup} meetingActive={!!c.activeMeeting} /></div>}
+    <div hidden={section !== "speech"}><Section title="Speech and translation"><SpeechWarmupNotice status={c.speechStatus} onRetry={c.retrySpeech} /><p className="muted">Recognition and translation run on this device.</p><h3>Model readiness</h3><div className="readiness-row"><span>Speech recognition</span><strong>{c.ready?.recognitionReady ? "Assets ready" : "Setup required"}</strong></div><div className="readiness-row"><span>{languageName(c.ready?.translation?.target ?? "en")} translation (Apple on-device)</span><strong>{translationStatus(c.ready)}</strong></div><p className="muted">Translation uses Apple on-device translation, which needs macOS 26 or later; the app itself runs on macOS 14.2. Where translation is unavailable the original language is kept and marked "translation pending". Install language pairs in System Settings → General → Language &amp; Region → Translation Languages.</p><label className="checkbox"><input type="checkbox" checked={!!c.ready?.translation?.experimentalMedium} disabled={!native() || c.busy || !!c.activeMeeting} onChange={(e) => c.toggleExperimentalMedium(e.target.checked)} />Experimental: translate with Whisper medium when Apple translation is unavailable</label><p className="muted">Off by default. It can drop clauses, invert meaning or mistranslate terms, and its output is not verified. After turning it on, choose Set up local models to download its 1.5&nbsp;GB model.</p><button className="primary" disabled={!native() || setupRunning || !!c.activeMeeting} onClick={c.installModels}>{setupRunning ? "Setting up…" : c.modelSetup.phase === "failed" ? "Retry download" : "Set up local models"}</button>{setupRunning && <><ModelProgress view={describeModelSetup(c.modelSetup)} /><button disabled={!!c.modelSetup.cancelling} onClick={c.cancelModelInstall}>{c.modelSetup.cancelling ? "Cancelling…" : "Cancel download"}</button></>}{c.modelSetup.phase === "failed" && c.modelSetup.failure && <p className="notice">{describeSetupFailure(c.modelSetup.failure).message} {describeSetupFailure(c.modelSetup.failure).recovery}</p>}<p className="muted">Downloads public assets for offline processing: about 3.2&nbsp;GB for speech recognition, plus 1.5&nbsp;GB for the experimental translation model only when it is turned on. Recording is not affected while this runs. Configuration does not establish live-call accuracy.</p></Section><Section title="Audio capture"><p>Microphone is <strong>me</strong>. System audio is <strong>remote</strong>.</p><p className="muted">Microphone selection and local audio retention are set per meeting. Source-language evidence is retained.</p><button className="link-button" onClick={() => navigate(c.activeMeeting ? { kind: "meeting", id: c.activeMeeting.id, preparationOpen: false, artifact: "overview" } : { kind: "meeting", id: "setup", preparationOpen: false, artifact: "overview" })}>Open meeting setup <ArrowRight size={16} /></button></Section><Section title="Recording independence"><p className="muted">Recording and transcription remain independent of reasoning-provider availability.</p><p className="muted">Speech: {speechStatusText(c.speechStatus)}</p></Section></div>
+    {c.publicProduct.enabled&&<><div hidden={section!=="account"}><PublicAccountSettings controller={c}/></div><div hidden={section!=="updates"}><PublicUpdates/></div></>}
+    {!c.activeMeeting && <><div hidden={section !== "reasoning"}><PublicReasoningSettings controller={c}/></div><div hidden={section !== "keyboard"} className="keyboard-settings"><ShortcutSettings expanded value={c.shortcuts} unavailable={c.unavailableShortcuts} onChange={(next) => { localStorage.setItem("liveInterview.shortcuts", JSON.stringify(next)); c.setShortcuts(next); }} /></div><div hidden={section !== "calendars"}>{c.publicProduct.enabled?<><PublicCalendarSettings controller={c}/><details><summary>Review a calendar change</summary><CalendarChangeReview onStatus={c.setAssistanceStatus} onEvents={() => { if(c.publicProduct.range)void c.publicProduct.loadRange(c.publicProduct.range.startMs,c.publicProduct.range.endMs); }} /></details></>:<CalendarChangeReview onStatus={c.setAssistanceStatus} onEvents={c.setUpcoming} onCoverage={c.setCalendarRange} />}</div><div hidden={section !== "sharing"}><SharingSettings records={c.records} onStatus={c.setAssistanceStatus} onRefresh={c.refreshRecords} /></div></>}
+    {c.activeMeeting && unavailableDuringMeeting.includes(section) && <p className="settings-meeting-notice" role="note">Available after this meeting ends. Recording continues.</p>}
+    <div hidden={section !== "diagnostics"}><Section title="Meeting detection"><p className="muted">{detectionStatusText(c.entry.detectionStatus)}</p>{d && <details open><summary>Detection details</summary><p className="muted">Status: {c.entry.detectionStatus}</p><p>{d.processCount} processes · {d.windows.length} inspected windows · {d.incomplete ? "inspection incomplete" : "inspection complete"}</p>{d.activation?.map((application, i) => <p key={"application-" + i}>Application {i + 1}: {application.windowsReturned ?? "unknown"} window references · {application.uniqueWindows ?? "unknown"} distinct windows</p>)}{d.windows.map((w, i) => <div className="diagnostic-row" key={i}><span>Window {i + 1}</span><span>{Object.values(w.matched).filter(Boolean).length}/3 call controls</span><small>{w.hasTitle ? "Title available" : "Title missing"} · {w.meetingShapedTitle ? "Meeting-shaped title" : "Other title"} · {w.counts.nodesVisited} nodes · depth {w.counts.maxDepthSeen}{w.counts.clipped ? " · clipped" : ""}{w.counts.errors ? " · " + w.counts.errors + " errors" : ""}{w.counts.foreignWindowButtons ? " · " + w.counts.foreignWindowButtons + " foreign-window controls ignored" : ""}{w.counts.unknownWindowButtons ? " · " + w.counts.unknownWindowButtons + " controls had no window identity" : ""}</small></div>)}</details>}{!c.publicProduct.enabled&&<StubPanel title="Automatic Zoom detection" description="Not implemented." />}</Section><Section title="Synthetic replay"><p className="muted">Test the existing pipeline with artificial text. Microphone recording is off.</p><button disabled={!native() || !!c.activeMeeting || c.busy} onClick={() => void c.startReplay().catch(() => c.setAssistanceStatus("The synthetic replay could not start. Try again after the current meeting ends.", true))}>Run synthetic replay</button><p className="muted">A replay is not a live audio or guidance-quality acceptance test.</p></Section><Section title="Assistance status"><p className="muted">{c.assistance.code}{c.assistance.detail ? " · " + c.assistance.detail : ""}</p>{c.assistance.text && <p>{c.assistance.text}</p>}<p className="muted">Answer timings by stage are also written to the webview console.</p></Section><Section title="Capture status"><p>{c.status}</p><FrameCounts controller={c} />{Object.entries(c.captureHealth).map(([lane, h]) => <details key={lane}><summary>{lane === "me" ? "Microphone" : "System audio"}: {h.code}</summary>{h.detail && <p>{h.detail}</p>}</details>)}</Section><Section title="Pending records"><button onClick={() => navigate({ kind: "meetings", view: "past" })}>Open pending records ({c.records.filter((r) => r.translationStatus === "pending" || (r.pendingSegments ?? 0) > 0).length})</button></Section></div>
+  </div>;
+}

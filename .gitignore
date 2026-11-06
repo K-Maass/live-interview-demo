@@ -5,3 +5,9 @@ coverage/
 dist/
 *.log
 .DS_Store
+artifacts/
+**/target/
+**/.build/
+apps/desktop/src-tauri/bin/local-speech
+.speech-preview/
+tests/fixtures/speech-benchmark/cache/
