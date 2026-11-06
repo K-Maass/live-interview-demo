@@ -1,0 +1,95 @@
+{
+  "id": "interview-en-brief-repetition-trap",
+  "title": "Interview where the obvious questions were already asked",
+  "profile": "interview",
+  "language": "en",
+  "purpose": "Understand why field technicians avoid the mobile app",
+  "objectives": [
+    "Why do technicians avoid the app?",
+    "What would make them use it?"
+  ],
+  "brief": {
+    "text": "Interview with Chris Doyle, field service manager at Brightline Utilities (fictional). Adoption is 35 percent.",
+    "objectives": [
+      "Root cause of low adoption"
+    ]
+  },
+  "attendees": [
+    {
+      "id": "p-chris",
+      "name": "Chris Doyle"
+    }
+  ],
+  "edgeCases": [
+    "topicShift"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Why do you think technicians avoid the app?"
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "It's slow in basements, there's no signal, so they write on paper and type it in later."
+    },
+    {
+      "seq": 3,
+      "lane": "me",
+      "text": "What would make them use it?"
+    },
+    {
+      "seq": 4,
+      "lane": "remote",
+      "text": "Offline mode, obviously. They've asked for it for a year."
+    },
+    {
+      "seq": 5,
+      "lane": "me",
+      "text": "Does anything else get in the way?"
+    },
+    {
+      "seq": 6,
+      "lane": "remote",
+      "text": "The forms have forty fields, half of which nobody fills in."
+    },
+    {
+      "seq": 7,
+      "lane": "remote",
+      "text": "And the bonus scheme counts completed jobs, not data quality, so typing later is no penalty."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "probe",
+      "intent": "digDeeper",
+      "at": 7,
+      "snapshotAt": 6,
+      "mustInclude": [
+        "Picks up the incentive angle (bonus counts completed jobs, not data quality) or the unused form fields",
+        "Asks something not already asked"
+      ],
+      "mustNotInclude": [
+        "Asks why technicians avoid the app",
+        "Asks what would make them use it",
+        "Suggests offline mode as a new idea"
+      ],
+      "ideal": "Ask whether changing the bonus to reward same-day data entry has ever been considered, or who owns the scheme."
+    },
+    {
+      "id": "contribute",
+      "intent": "contribute",
+      "at": 7,
+      "snapshotAt": 7,
+      "mustInclude": [
+        "Offers a non-obvious connection, e.g. that offline mode alone may not lift adoption while the bonus scheme rewards typing later"
+      ],
+      "mustNotInclude": [
+        "Repeats offline mode as the main recommendation"
+      ],
+      "ideal": "Point out that offline mode fixes signal, but the bonus rewards completion, so adoption may stay low without changing incentives."
+    }
+  ],
+  "sources": []
+}

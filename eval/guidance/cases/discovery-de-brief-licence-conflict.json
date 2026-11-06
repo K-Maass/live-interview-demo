@@ -1,0 +1,85 @@
+{
+  "id": "discovery-de-brief-licence-conflict",
+  "title": "German discovery call where speech conflicts with the source",
+  "profile": "discovery",
+  "language": "de",
+  "purpose": "Bedarf für die Lizenzerweiterung klären",
+  "objectives": [
+    "Wie viele Lizenzen werden gebraucht?",
+    "Wer entscheidet über das Budget?"
+  ],
+  "brief": {
+    "text": "Customer: Stadtwerke Lindenau (fictional). Current contract: 40 licences. Expansion conversation.",
+    "objectives": [
+      "Licence count",
+      "Budget owner"
+    ]
+  },
+  "attendees": [
+    {
+      "id": "p-frank",
+      "name": "Frank Weber"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "contract",
+      "title": "Vertragsübersicht",
+      "kind": "markdown",
+      "text": "Aktueller Vertrag: 40 Lizenzen, Laufzeit bis 30.06. Preis je Lizenz 32 EUR/Monat.",
+      "revision": 1
+    }
+  ],
+  "edgeCases": [
+    "conflictingClaims"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Wie viele Lizenzen nutzt ihr heute?",
+      "translation": "How many licences do you use today?"
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Wir haben aktuell sechzig Lizenzen, und wir bräuchten noch etwa zwanzig dazu.",
+      "translation": "We currently have sixty licences, and we would need about twenty more."
+    },
+    {
+      "seq": 3,
+      "lane": "remote",
+      "text": "Das Budget gibt am Ende der Kaufmännische Leiter frei.",
+      "translation": "The commercial director releases the budget in the end."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "check-convo",
+      "intent": "checkConversation",
+      "at": 3,
+      "snapshotAt": 2,
+      "mustInclude": [
+        "Flags that Frank says sixty licences while the contract lists forty",
+        "Suggests clarifying whether twenty more means sixty or eighty in total"
+      ],
+      "mustNotInclude": [
+        "Accepts sixty licences as the contract count"
+      ],
+      "ideal": "Clarify the mismatch: the contract shows forty licences, Frank says sixty; does 'twenty more' mean sixty or eighty in total?"
+    },
+    {
+      "id": "probe",
+      "intent": "digDeeper",
+      "at": 3,
+      "snapshotAt": 3,
+      "mustInclude": [
+        "Asks a question that resolves the licence discrepancy or the real user count"
+      ],
+      "mustNotInclude": [
+        "Asks again who approves the budget"
+      ],
+      "ideal": "Ask whether the extra twenty seats are already in use informally, which would explain sixty versus the forty in the contract."
+    }
+  ]
+}

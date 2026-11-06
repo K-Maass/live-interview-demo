@@ -1,0 +1,62 @@
+{
+  "id": "presentation-de-brief-answer-in-sources",
+  "title": "German presentation answering from the material",
+  "profile": "presentationAnswering",
+  "language": "de",
+  "purpose": "Ergebnisse der Kundenbefragung präsentieren",
+  "objectives": [
+    "Kernergebnisse vermitteln",
+    "Fragen beantworten"
+  ],
+  "brief": {
+    "text": "Survey of 420 customers for Kaufhaus Reinhardt (fictional). Satisfaction 7.4/10. Main complaint: delivery times.",
+    "objectives": [
+      "Answer questions"
+    ]
+  },
+  "attendees": [
+    {
+      "id": "p-petra",
+      "name": "Petra Lange"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "survey",
+      "title": "Befragungsergebnisse",
+      "kind": "markdown",
+      "text": "420 Teilnehmende, Zufriedenheit 7,4 von 10. Häufigste Beschwerde: Lieferzeiten (31 Prozent). Zweithäufigste: Rücksendeprozess (18 Prozent). Erhebung im September.",
+      "revision": 1
+    }
+  ],
+  "edgeCases": [],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Die Zufriedenheit liegt insgesamt bei sieben Komma vier.",
+      "translation": "Overall satisfaction is seven point four."
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Und was war nach den Lieferzeiten das zweitgrößte Problem?",
+      "translation": "And what was the second-biggest problem after delivery times?"
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "respond",
+      "intent": "respond",
+      "at": 2,
+      "snapshotAt": 1,
+      "mustInclude": [
+        "Answers: the return process, named by 18 percent"
+      ],
+      "mustNotInclude": [
+        "Gives a different second complaint or a different percentage"
+      ],
+      "ideal": "Der Rücksendeprozess, mit 18 Prozent der Nennungen."
+    }
+  ]
+}

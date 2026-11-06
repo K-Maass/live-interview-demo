@@ -1,0 +1,58 @@
+{
+  "id": "discovery-de-nobrief-dpia-noise",
+  "title": "German discovery with recognition noise on privacy terms",
+  "profile": "discovery",
+  "language": "de",
+  "purpose": "Datenschutzanforderungen für ein Pilotprojekt verstehen",
+  "objectives": [
+    "Ist eine Datenschutz-Folgenabschätzung nötig?",
+    "Wer muss zustimmen?"
+  ],
+  "attendees": [
+    {
+      "id": "p-lena",
+      "name": "Lena Brandt"
+    }
+  ],
+  "edgeCases": [
+    "asrNoise"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Was braucht ihr datenschutzseitig für den Piloten?",
+      "translation": "What do you need on the data protection side for the pilot?"
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Unser D S B sagt wir brauchen eine Daten Schutz folgen ab Schätzung, weil Gesundheits Daten dabei sind.",
+      "translation": "Our D S B says we need a data protection follow from estimate, because health data is included."
+    },
+    {
+      "seq": 3,
+      "lane": "remote",
+      "text": "Und der Betriebs Rat muss auch zu stimmen, weil man Mitarbeiter Leistung ablesen könnte.",
+      "translation": "And the works council must also agree, because you could read off employee performance."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "contribute",
+      "intent": "contribute",
+      "at": 3,
+      "snapshotAt": 2,
+      "mustInclude": [
+        "Correctly reads the noisy terms as the data protection officer (DSB) and a DPIA (Datenschutz-Folgenabschätzung)",
+        "Adds a useful angle, e.g. preparing the DPIA and the works-council agreement in parallel, or limiting the pilot so performance data is not visible, marked uncertain if general knowledge"
+      ],
+      "mustNotInclude": [
+        "Repeats the garbled translation 'data protection follow from estimate'",
+        "Claims the DPIA is already approved"
+      ],
+      "ideal": "Suggest running the DPIA and the works-council agreement in parallel and scoping the pilot so individual performance isn't visible."
+    }
+  ],
+  "sources": []
+}

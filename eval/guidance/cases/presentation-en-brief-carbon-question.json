@@ -1,0 +1,88 @@
+{
+  "id": "presentation-en-brief-carbon-question",
+  "title": "Presenting a cloud migration with an out-of-evidence question",
+  "profile": "presentationAnswering",
+  "language": "en",
+  "purpose": "Present the cloud migration plan to the steering committee and answer questions",
+  "objectives": [
+    "Get approval for phase one",
+    "Answer cost and risk questions"
+  ],
+  "brief": {
+    "text": "Phase one moves 40 internal apps over six months. Estimated run cost falls 18 percent after year two. Main risk: legacy licensing for two apps.",
+    "objectives": [
+      "Phase one approval"
+    ]
+  },
+  "attendees": [
+    {
+      "id": "p-elena",
+      "name": "Elena Varga"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "deck",
+      "title": "Steering deck notes",
+      "kind": "markdown",
+      "text": "Phase one: 40 internal apps, 6 months. Run cost minus 18 percent after year two. Risks: legacy licences for payroll and archive apps; staff training.",
+      "revision": 1
+    }
+  ],
+  "edgeCases": [
+    "answerNotInEvidence"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "So phase one covers forty internal apps over six months."
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "What does it do to cost?"
+    },
+    {
+      "seq": 3,
+      "lane": "me",
+      "text": "Run cost drops about eighteen percent after year two."
+    },
+    {
+      "seq": 4,
+      "lane": "remote",
+      "text": "And what's the carbon footprint difference compared with our own data centre? The board will ask."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "respond-carbon",
+      "intent": "respond",
+      "at": 4,
+      "snapshotAt": 3,
+      "mustInclude": [
+        "Gives a best general answer (e.g. that large cloud regions are often more energy-efficient, but the actual difference depends on region and utilisation)",
+        "Marks the answer as uncertain or makes clear no figure exists in the material",
+        "Offers to follow up with a measured number"
+      ],
+      "mustNotInclude": [
+        "States a specific carbon reduction percentage or figure as fact",
+        "Attributes a carbon figure to the deck"
+      ],
+      "ideal": "We don't have a measured figure; typically large cloud regions run more efficiently than a small own data centre, but it depends on region; we'll bring a number."
+    },
+    {
+      "id": "respond-cost",
+      "intent": "respond",
+      "at": 2,
+      "snapshotAt": 1,
+      "mustInclude": [
+        "Answers with the eighteen percent run-cost reduction after year two"
+      ],
+      "mustNotInclude": [
+        "Invents an absolute euro saving"
+      ],
+      "ideal": "Run cost falls by about eighteen percent after year two."
+    }
+  ]
+}

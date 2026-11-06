@@ -1,0 +1,90 @@
+{
+  "id": "workclient-en-nobrief-sso-conflict",
+  "title": "Client meeting with conflicting SSO statements",
+  "profile": "workClient",
+  "language": "en",
+  "purpose": "Resolve open contract questions for a collaboration tool rollout",
+  "objectives": [
+    "Is SSO included in the current contract?",
+    "Who handles user provisioning?"
+  ],
+  "attendees": [
+    {
+      "id": "p-kim",
+      "name": "Kim Larsen"
+    },
+    {
+      "id": "p-joe",
+      "name": "Joe Brandt"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "contract",
+      "title": "Order form excerpt",
+      "kind": "markdown",
+      "text": "Plan: Business. Included: up to 300 seats, standard support. Add-ons available: SAML SSO (EUR 2 per seat per month), audit log export.",
+      "revision": 1
+    }
+  ],
+  "edgeCases": [
+    "conflictingClaims"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "remote",
+      "text": "From procurement's side, SSO is included, the vendor told us that in the demo."
+    },
+    {
+      "seq": 2,
+      "lane": "me",
+      "text": "Okay, and provisioning, is that your IT team?"
+    },
+    {
+      "seq": 3,
+      "lane": "remote",
+      "text": "Yes, IT will do provisioning through the directory."
+    },
+    {
+      "seq": 4,
+      "lane": "remote",
+      "text": "Actually, I'm looking at the order form now and I think SSO might be an add-on."
+    },
+    {
+      "seq": 5,
+      "lane": "remote",
+      "text": "Sam, do you know if SSO is included in what we signed?"
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "respond-sso",
+      "intent": "respond",
+      "at": 5,
+      "snapshotAt": 4,
+      "mustInclude": [
+        "Answers that the order form lists SAML SSO as an add-on at EUR 2 per seat per month, not included in the Business plan",
+        "Leads with the answer"
+      ],
+      "mustNotInclude": [
+        "Says SSO is included",
+        "Cites the demo statement as authoritative"
+      ],
+      "ideal": "According to the order form, SAML SSO is an add-on at two euros per seat per month; the Business plan does not include it."
+    },
+    {
+      "id": "check-convo",
+      "intent": "checkConversation",
+      "at": 5,
+      "snapshotAt": 4,
+      "mustInclude": [
+        "Notes the contradiction between procurement's 'SSO is included' and the order form"
+      ],
+      "mustNotInclude": [
+        "Treats SSO inclusion as settled by the demo"
+      ],
+      "ideal": "Flag that procurement's understanding conflicts with the signed order form, and confirm the budget impact."
+    }
+  ]
+}

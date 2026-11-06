@@ -126,7 +126,7 @@ export function cardGrounded(
 }
 
 /** Markers that cannot occur in escaped content, because "<" is written as < inside it. */
-const fence = (label: string, value: unknown) => {
+export const fence = (label: string, value: unknown) => {
   const body = JSON.stringify(value).replace(/</g, "\\u003c");
   return `<<<BEGIN UNTRUSTED ${label}>>>\n${body}\n<<<END UNTRUSTED ${label}>>>`;
 };
@@ -137,10 +137,28 @@ const fence = (label: string, value: unknown) => {
  * marker-like text inside them is escaped so it cannot close a fence early.
  */
 export function fencedEvidence(context: ContextBundle): string {
-  const { sources, conversation, ...settings } = context;
+  // Stable first and volatile last, so consecutive prompts in a meeting share a long prefix (provider
+  // prompt caching): settings that hold for the meeting, the sources in ID order (a new hit then
+  // changes the text only from its own place, not by re-ranking), the transcript (new turns append),
+  // and last the state that moves during the meeting. The revision counters are bookkeeping and are
+  // left out: each source carries its own revision.
+  const {
+    sources,
+    conversation,
+    coveredObjectives,
+    pinnedTopics,
+    attributions,
+    stateRevision: _state,
+    indexRevision: _index,
+    sourceRevisions: _revisions,
+    ...settings
+  } = context;
   return [
     JSON.stringify(settings),
-    ...sources.map((s) => fence(`SOURCE ${s.sourceId.replace(/[<>\s]/g, "_")}`, s)),
+    ...[...sources]
+      .sort((a, b) => (a.sourceId < b.sourceId ? -1 : a.sourceId > b.sourceId ? 1 : 0))
+      .map((s) => fence(`SOURCE ${s.sourceId.replace(/[<>\s]/g, "_")}`, s)),
     fence("TRANSCRIPT", conversation),
+    JSON.stringify({ coveredObjectives, pinnedTopics, attributions }),
   ].join("\n");
 }

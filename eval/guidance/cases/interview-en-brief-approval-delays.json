@@ -1,0 +1,110 @@
+{
+  "id": "interview-en-brief-approval-delays",
+  "title": "User interview: invoice approval delays",
+  "profile": "interview",
+  "language": "en",
+  "purpose": "Understand where invoice approvals stall at a mid-size logistics firm",
+  "objectives": [
+    "How long do invoice approvals take end to end?",
+    "Who can approve invoices above the limit?",
+    "What workaround do teams use today?"
+  ],
+  "brief": {
+    "text": "Interviewee: Dana Okafor, accounts payable lead at Harbor Freight Partners (fictional). Hypothesis: approvals stall when the second approver is away. Avoid pitching any product.",
+    "objectives": [
+      "Validate the absent-approver hypothesis",
+      "Find the approval limit"
+    ]
+  },
+  "attendees": [
+    {
+      "id": "p-dana",
+      "name": "Dana Okafor"
+    }
+  ],
+  "edgeCases": [
+    "conflictingClaims",
+    "mentionedNotCovered"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Thanks for making time, Dana. How long does an invoice usually take from arrival to approval?"
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Honestly it's quick, about a day for most invoices."
+    },
+    {
+      "seq": 3,
+      "lane": "me",
+      "text": "And who approves them?"
+    },
+    {
+      "seq": 4,
+      "lane": "remote",
+      "text": "Anything under five thousand euros I approve myself. Above that it needs a second approver from the finance controller team."
+    },
+    {
+      "seq": 5,
+      "lane": "me",
+      "text": "What happens when that controller is away?"
+    },
+    {
+      "seq": 6,
+      "lane": "remote",
+      "text": "Then it sits. Last month two invoices from our biggest carrier waited about a week because Marc was on leave and nobody else had the rights."
+    },
+    {
+      "seq": 7,
+      "lane": "remote",
+      "text": "We sometimes just email the CFO and ask her to approve from her phone, but she hates that."
+    },
+    {
+      "seq": 8,
+      "lane": "me",
+      "text": "Got it. And the approval limit, is that the same for every supplier?"
+    },
+    {
+      "seq": 9,
+      "lane": "remote",
+      "text": "I think so, I'd have to check the policy. Our carriers are mostly above the limit anyway."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "probe-delay",
+      "intent": "digDeeper",
+      "at": 9,
+      "snapshotAt": 7,
+      "mustInclude": [
+        "Probes the gap between 'about a day' and the week-long waits, e.g. how often invoices exceed the limit or how often the controller is unavailable",
+        "Is a single question the user can ask now"
+      ],
+      "mustNotInclude": [
+        "Re-asks how long approvals take in general",
+        "Re-asks who approves invoices",
+        "Pitches a product or solution"
+      ],
+      "ideal": "Ask what share of invoices, by value, goes above five thousand euros and therefore depends on the controller, since carriers are mostly above the limit."
+    },
+    {
+      "id": "objectives-gap",
+      "intent": "checkObjectives",
+      "at": 9,
+      "snapshotAt": 8,
+      "mustInclude": [
+        "States that the approval limit per supplier is still unconfirmed (Dana must check the policy)",
+        "Names a concrete next question or follow-up"
+      ],
+      "mustNotInclude": [
+        "Treats the approval limit question as fully answered",
+        "Treats end-to-end approval time as settled at one day"
+      ],
+      "ideal": "The limit was only mentioned with uncertainty; ask Dana to confirm the policy, and note the conflict between 'a day' and week-long waits."
+    }
+  ],
+  "sources": []
+}

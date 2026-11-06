@@ -1,0 +1,63 @@
+{
+  "id": "workclient-de-nobrief-acceptance-mentioned",
+  "title": "German client meeting where acceptance is only mentioned",
+  "profile": "workClient",
+  "language": "de",
+  "purpose": "Abnahme der Schnittstelle besprechen",
+  "objectives": [
+    "Abnahmetermin vereinbaren",
+    "Offene Mängel klären"
+  ],
+  "attendees": [
+    {
+      "id": "p-sara",
+      "name": "Sara Yilmaz"
+    }
+  ],
+  "edgeCases": [
+    "mentionedNotCovered"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Wann wollen wir die Abnahme machen?",
+      "translation": "When do we want to do the acceptance?"
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Ja, Abnahme, das sollten wir irgendwann im November machen.",
+      "translation": "Yes, acceptance, we should do that sometime in November."
+    },
+    {
+      "seq": 3,
+      "lane": "remote",
+      "text": "Es gibt noch zwei offene Mängel, der Export bricht bei Umlauten ab und das Logging ist zu ausführlich.",
+      "translation": "There are still two open defects, the export fails on umlauts and the logging is too verbose."
+    },
+    {
+      "seq": 4,
+      "lane": "me",
+      "text": "Den Export-Fehler schauen wir uns diese Woche an.",
+      "translation": "We'll look at the export error this week."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "objectives",
+      "intent": "checkObjectives",
+      "at": 4,
+      "snapshotAt": 3,
+      "mustInclude": [
+        "States that no acceptance date was agreed ('sometime in November')",
+        "Notes that the logging defect has no owner or plan yet"
+      ],
+      "mustNotInclude": [
+        "Marks the acceptance date as agreed"
+      ],
+      "ideal": "Acceptance date is still open; propose a concrete date in November and assign the logging defect."
+    }
+  ],
+  "sources": []
+}

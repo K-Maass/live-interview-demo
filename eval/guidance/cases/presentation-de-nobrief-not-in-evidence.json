@@ -1,0 +1,59 @@
+{
+  "id": "presentation-de-nobrief-not-in-evidence",
+  "title": "German presentation with a question outside the material",
+  "profile": "presentationAnswering",
+  "language": "de",
+  "purpose": "Neues Schichtplanungstool vorstellen",
+  "objectives": [
+    "Funktionen erklären",
+    "Fragen beantworten"
+  ],
+  "attendees": [
+    {
+      "id": "p-heinz",
+      "name": "Heinz Krämer"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "tool",
+      "title": "Produktblatt",
+      "kind": "markdown",
+      "text": "Schichtplanung per Drag-and-drop, Tauschbörse für Schichten, Export nach DATEV.",
+      "revision": 1
+    }
+  ],
+  "edgeCases": [
+    "answerNotInEvidence"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Mitarbeitende können Schichten untereinander über die Tauschbörse tauschen.",
+      "translation": "Employees can swap shifts with each other via the swap exchange."
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Gilt dabei automatisch das Arbeitszeitgesetz, also die elf Stunden Ruhezeit?",
+      "translation": "Does the Working Hours Act apply automatically, so the eleven hours rest period?"
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "respond",
+      "intent": "respond",
+      "at": 2,
+      "snapshotAt": 1,
+      "mustInclude": [
+        "Says the material does not state whether rest periods are checked automatically, and marks any answer as uncertain",
+        "Keeps the general fact that German law requires eleven hours of rest separate from claims about the tool"
+      ],
+      "mustNotInclude": [
+        "Claims the tool automatically enforces the eleven-hour rest period"
+      ],
+      "ideal": "Das steht nicht im Produktblatt; gesetzlich gelten elf Stunden Ruhezeit, ob das Tool das prüft, kläre ich nach."
+    }
+  ]
+}

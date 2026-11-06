@@ -1,0 +1,54 @@
+{
+  "id": "presentation-en-brief-holdout-pilot-savings",
+  "title": "Held-out: pilot savings came from the most favourable site",
+  "profile": "presentationAnswering",
+  "language": "en",
+  "purpose": "Present the route-planning pilot results to the operations board",
+  "objectives": [
+    "Get approval to extend the pilot to three more depots",
+    "Collect the board's concerns"
+  ],
+  "brief": {
+    "text": "Pilot ran at one depot for eight weeks. Headline result: fuel cost down 14%. Approval needed for three more depots.",
+    "objectives": ["Win the extension", "Note concerns"]
+  },
+  "attendees": [
+    { "id": "p-omar", "name": "Omar Haddad" }
+  ],
+  "edgeCases": [
+    "conflictingClaims"
+  ],
+  "turns": [
+    { "seq": 1, "lane": "me", "text": "In the pilot, fuel cost at the depot fell fourteen percent over eight weeks." },
+    { "seq": 2, "lane": "remote", "text": "That's a strong number. Which depot was it?" },
+    { "seq": 3, "lane": "me", "text": "Northgate." },
+    { "seq": 4, "lane": "remote", "text": "Northgate is the one with the new orbital road, isn't it? Its routes changed a lot this spring anyway." },
+    { "seq": 5, "lane": "remote", "text": "The three depots you want next are all city-centre sites with fixed delivery windows." }
+  ],
+  "checkpoints": [
+    {
+      "id": "probe-transfer",
+      "intent": "digDeeper",
+      "at": 5,
+      "snapshotAt": 3,
+      "mustInclude": [
+        "Engages with whether the 14% came from the planner or from Northgate's road change, or whether it transfers to city-centre depots with fixed windows",
+        "Is a single question the user can ask or answer now"
+      ],
+      "mustNotInclude": [
+        "Repeats the 14% result as settled proof for the other depots",
+        "Re-asks which depot ran the pilot"
+      ],
+      "ideal": "Raise the board's real concern directly: ask which part of the 14% they would need to see separated from the orbital road effect, or propose comparing against another depot over the same weeks."
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "pilot-summary",
+      "title": "Pilot summary",
+      "kind": "markdown",
+      "text": "Route planner pilot, Northgate depot, 8 weeks. Fuel cost per stop: -14% vs the previous 8 weeks. No control depot was used.",
+      "revision": 1
+    }
+  ]
+}

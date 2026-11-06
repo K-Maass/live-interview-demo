@@ -1,0 +1,67 @@
+{
+  "id": "presentation-en-nobrief-dashboard-qa",
+  "title": "Analytics demo Q&A without a brief",
+  "profile": "presentationAnswering",
+  "language": "en",
+  "purpose": "Demo the new churn dashboard to the customer success team",
+  "objectives": [
+    "Explain how churn risk is calculated",
+    "Collect feedback"
+  ],
+  "attendees": [
+    {
+      "id": "p-ines",
+      "name": "Ines Kowalski"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "model-notes",
+      "title": "Churn model notes",
+      "kind": "markdown",
+      "text": "Churn risk score 0-100. Inputs: logins in last 30 days, open support tickets, contract months remaining. Retrained monthly. Does not use NPS.",
+      "revision": 1
+    }
+  ],
+  "edgeCases": [],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "This view ranks accounts by churn risk, highest first."
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Nice. Does the score take our NPS survey into account?"
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "respond-nps",
+      "intent": "respond",
+      "at": 2,
+      "snapshotAt": 1,
+      "mustInclude": [
+        "Answers no: the score uses logins, open support tickets and remaining contract months, not NPS"
+      ],
+      "mustNotInclude": [
+        "Says NPS is an input"
+      ],
+      "ideal": "No, NPS isn't an input; it uses logins in the last 30 days, open tickets and months left on the contract."
+    },
+    {
+      "id": "check-convo",
+      "intent": "checkConversation",
+      "at": 2,
+      "snapshotAt": 2,
+      "mustInclude": [
+        "Notes that feedback has not yet been collected or suggests capturing whether NPS should be added as feedback"
+      ],
+      "mustNotInclude": [
+        "Claims feedback was collected"
+      ],
+      "ideal": "Note that the NPS question is useful feedback to capture; feedback collection is still open."
+    }
+  ]
+}

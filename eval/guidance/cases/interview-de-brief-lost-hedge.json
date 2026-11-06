@@ -1,0 +1,70 @@
+{
+  "id": "interview-de-brief-lost-hedge",
+  "title": "German interview with a translation that drops a hedge",
+  "profile": "interview",
+  "language": "de",
+  "purpose": "Verstehen, wann das neue Lagerverwaltungssystem live gehen kann",
+  "objectives": [
+    "Realistischer Starttermin",
+    "Größte Abhängigkeit"
+  ],
+  "brief": {
+    "text": "Interview with Jonas Albrecht, IT lead at Kessler Logistik (fictional). Decision needed: whether to plan training for Q2.",
+    "objectives": [
+      "Realistic start date"
+    ]
+  },
+  "attendees": [
+    {
+      "id": "p-jonas",
+      "name": "Jonas Albrecht"
+    }
+  ],
+  "edgeCases": [
+    "mistranslation"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Jonas, wann könnt ihr realistisch mit dem neuen System starten?",
+      "translation": "Jonas, when can you realistically start with the new system?"
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Das könnte eventuell bis Ende Q2 klappen, wenn der Dienstleister die Schnittstelle zum ERP rechtzeitig liefert.",
+      "translation": "This will work by the end of Q2 when the service provider delivers the ERP interface."
+    },
+    {
+      "seq": 3,
+      "lane": "me",
+      "text": "Und wovon hängt das am meisten ab?",
+      "translation": "And what does it depend on most?"
+    },
+    {
+      "seq": 4,
+      "lane": "remote",
+      "text": "Von der Schnittstelle. Die war schon zweimal verspätet.",
+      "translation": "On the interface. It was already late twice."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "probe",
+      "intent": "digDeeper",
+      "at": 4,
+      "snapshotAt": 3,
+      "mustInclude": [
+        "Treats the Q2 date as uncertain ('eventuell', conditional on the ERP interface), not as a commitment",
+        "Probes the interface risk, e.g. what the provider has committed to now, or what happens to training if it slips again"
+      ],
+      "mustNotInclude": [
+        "Presents end of Q2 as a firm or confirmed date",
+        "Re-asks what the start depends on"
+      ],
+      "ideal": "Ask what date the provider has committed for the ERP interface this time and what the fallback is, since it slipped twice."
+    }
+  ],
+  "sources": []
+}

@@ -1,0 +1,1 @@
+{"name":"@live-interview/core","private":true,"version":"0.1.0","type":"module","exports":"./src/index.ts","scripts":{"test":"vitest run","check":"tsc --noEmit"},"devDependencies":{"vitest":"^4.1.12","typescript":"~5.8.3","@types/node":"^25.9.3"}}

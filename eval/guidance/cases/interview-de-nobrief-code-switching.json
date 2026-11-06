@@ -1,0 +1,84 @@
+{
+  "id": "interview-de-nobrief-code-switching",
+  "title": "German-English code-switching about deployments",
+  "profile": "interview",
+  "language": "de",
+  "purpose": "Deployment-Prozess im Team verstehen",
+  "objectives": [
+    "Wie läuft ein Release ab?",
+    "Wo entstehen Verzögerungen?"
+  ],
+  "attendees": [
+    {
+      "id": "p-mia",
+      "name": "Mia Hoffmann"
+    }
+  ],
+  "edgeCases": [
+    "codeSwitching",
+    "asrNoise"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Wie läuft bei euch ein Release ab?",
+      "translation": "How does a release work for you?"
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Wir haben das Deployment komplett über die Pipeline, aber die Approvals sind noch manual, das macht der Change Advisory Board einmal die Woche.",
+      "translation": "We have deployment completely via the pipeline, but the approvals are still manual, the change advisory board does that once a week."
+    },
+    {
+      "seq": 3,
+      "lane": "remote",
+      "text": "Und wenn das CAB am Dienstag nicht tagt, dann wartet der Hotfix halt bis nächste Woche, außer es ist ein P eins.",
+      "translation": "And if the CAB doesn't meet on Tuesday, then the hotfix just waits until next week, unless it's a P1."
+    },
+    {
+      "seq": 4,
+      "lane": "me",
+      "text": "Okay, und wie oft passiert das?",
+      "translation": "Okay, and how often does that happen?"
+    },
+    {
+      "seq": 5,
+      "lane": "remote",
+      "text": "Gefühlt jeden Monat einmal.",
+      "translation": "It feels like once a month."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "probe",
+      "intent": "digDeeper",
+      "at": 5,
+      "snapshotAt": 4,
+      "mustInclude": [
+        "Probes the weekly manual approval bottleneck, e.g. what a non-P1 hotfix costs while waiting or which changes could be pre-approved",
+        "Keeps 'Gefühlt' as an estimate, not a measured rate"
+      ],
+      "mustNotInclude": [
+        "Re-asks how a release works",
+        "Re-asks how often the delay happens"
+      ],
+      "ideal": "Ask which kinds of changes the CAB could pre-approve so non-P1 hotfixes don't wait a week."
+    },
+    {
+      "id": "check-convo",
+      "intent": "checkConversation",
+      "at": 5,
+      "snapshotAt": 5,
+      "mustInclude": [
+        "Summarises the bottleneck as the weekly manual CAB approval and the roughly monthly delayed hotfix (as an estimate)"
+      ],
+      "mustNotInclude": [
+        "States a measured frequency"
+      ],
+      "ideal": "Check: the delay comes from weekly manual CAB approvals; roughly monthly, by feel."
+    }
+  ],
+  "sources": []
+}

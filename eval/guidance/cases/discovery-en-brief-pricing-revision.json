@@ -1,0 +1,109 @@
+{
+  "id": "discovery-en-brief-pricing-revision",
+  "title": "Discovery call with a revised price sheet",
+  "profile": "discovery",
+  "language": "en",
+  "purpose": "Qualify a renewal for a document-scanning service and understand budget",
+  "objectives": [
+    "What volume will they scan next year?",
+    "What budget is approved?"
+  ],
+  "brief": {
+    "text": "Account: Northwind Clinics (fictional), 12 sites. Renewal due in January. Our price sheet was revised this week.",
+    "objectives": [
+      "Confirm scanning volume",
+      "Confirm budget owner"
+    ]
+  },
+  "attendees": [
+    {
+      "id": "p-lee",
+      "name": "Morgan Lee"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "price-sheet",
+      "title": "Scanning price sheet",
+      "kind": "markdown",
+      "text": "Standard tier: 0.08 EUR per page up to 500,000 pages per year. Volume tier: 0.06 EUR per page above 500,000 pages.",
+      "revision": 1
+    }
+  ],
+  "edgeCases": [
+    "staleSource",
+    "conflictingClaims"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Morgan, what volume are you expecting next year across the sites?"
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Roughly six hundred thousand pages, maybe more if the two new sites open."
+    },
+    {
+      "seq": 3,
+      "sourceUpdate": {
+        "sourceId": "price-sheet",
+        "title": "Scanning price sheet",
+        "kind": "markdown",
+        "text": "Revised: Standard tier 0.09 EUR per page up to 400,000 pages per year. Volume tier 0.07 EUR per page above 400,000 pages. Effective for renewals signed after 1 November.",
+        "revision": 2
+      }
+    },
+    {
+      "seq": 4,
+      "lane": "remote",
+      "text": "And we budgeted on your six cents a page volume price, that's what your colleague quoted in spring."
+    },
+    {
+      "seq": 5,
+      "lane": "me",
+      "text": "Understood. Who signs off on the budget?"
+    },
+    {
+      "seq": 6,
+      "lane": "remote",
+      "text": "Our operations director, Priya, but she only looks at it if it's above forty thousand euros."
+    },
+    {
+      "seq": 7,
+      "lane": "remote",
+      "text": "Right now we're assuming about thirty-six thousand for the year."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "contribute-price",
+      "intent": "contribute",
+      "at": 7,
+      "snapshotAt": 4,
+      "mustInclude": [
+        "Flags that the budget assumption uses the old six-cent volume price, while the revised sheet sets 0.07 EUR above 400,000 pages for renewals after 1 November",
+        "Connects this to Priya's forty-thousand-euro sign-off threshold or the renewal timing"
+      ],
+      "mustNotInclude": [
+        "Confirms six cents per page as the current price",
+        "Invents a discount or a figure not in the sources"
+      ],
+      "ideal": "Point out that at the revised price the estimate likely moves above forty thousand euros, which would bring Priya in; suggest checking renewal timing against 1 November."
+    },
+    {
+      "id": "check-convo",
+      "intent": "checkConversation",
+      "at": 7,
+      "snapshotAt": 6,
+      "mustInclude": [
+        "Identifies the contradiction between the customer's six-cent assumption and the revised price sheet"
+      ],
+      "mustNotInclude": [
+        "Says the budget is confirmed"
+      ],
+      "ideal": "Name the price mismatch and that the budget owner may change if the total crosses forty thousand euros."
+    }
+  ]
+}

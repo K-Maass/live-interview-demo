@@ -1,0 +1,78 @@
+{
+  "id": "presentation-en-brief-stale-deck",
+  "title": "Presentation where the deck was revised during the talk",
+  "profile": "presentationAnswering",
+  "language": "en",
+  "purpose": "Present quarterly hiring numbers to department heads",
+  "objectives": [
+    "Present hiring status",
+    "Answer questions"
+  ],
+  "brief": {
+    "text": "Hiring plan for the engineering department of a fictional company. Numbers come from the recruiting deck.",
+    "objectives": [
+      "Answer questions"
+    ]
+  },
+  "attendees": [
+    {
+      "id": "p-rosa",
+      "name": "Rosa Mendes"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "hiring",
+      "title": "Recruiting deck",
+      "kind": "markdown",
+      "text": "Q3: 14 offers accepted of 20 planned hires. Average time to hire 41 days.",
+      "revision": 1
+    }
+  ],
+  "edgeCases": [
+    "staleSource"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "We've closed fourteen of twenty planned hires this quarter."
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Sorry to interrupt, recruiting just updated the deck, two more offers were accepted this morning."
+    },
+    {
+      "seq": 3,
+      "sourceUpdate": {
+        "sourceId": "hiring",
+        "title": "Recruiting deck",
+        "kind": "markdown",
+        "text": "Q3: 16 offers accepted of 20 planned hires. Average time to hire 43 days.",
+        "revision": 2
+      }
+    },
+    {
+      "seq": 4,
+      "lane": "remote",
+      "text": "So how many hires are still open?"
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "respond",
+      "intent": "respond",
+      "at": 4,
+      "snapshotAt": 2,
+      "mustInclude": [
+        "Answers that four hires remain open based on Rosa's update (sixteen of twenty), or says the updated deck should be checked",
+        "Does not present six open hires as current"
+      ],
+      "mustNotInclude": [
+        "States six hires are still open as current fact"
+      ],
+      "ideal": "With the two offers accepted this morning, four of the twenty remain open."
+    }
+  ]
+}

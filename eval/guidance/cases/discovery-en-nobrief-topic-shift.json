@@ -1,0 +1,84 @@
+{
+  "id": "discovery-en-nobrief-topic-shift",
+  "title": "Discovery call that shifts to data residency",
+  "profile": "discovery",
+  "language": "en",
+  "purpose": "Explore reporting needs for a retail analytics pilot",
+  "objectives": [
+    "Which reports matter most?",
+    "What blocks a pilot?"
+  ],
+  "attendees": [
+    {
+      "id": "p-sam",
+      "name": "Sam Ortega"
+    }
+  ],
+  "edgeCases": [
+    "topicShift"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Which reports does your team open every week?"
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Mostly the weekly sales by store and the stock-outs report."
+    },
+    {
+      "seq": 3,
+      "lane": "me",
+      "text": "And what's missing from them?"
+    },
+    {
+      "seq": 4,
+      "lane": "remote",
+      "text": "Forecasts, we only see what already happened."
+    },
+    {
+      "seq": 5,
+      "lane": "remote",
+      "text": "But honestly, before any pilot, legal will ask where the data is stored. Last year they killed a pilot because the vendor hosted outside the EU."
+    },
+    {
+      "seq": 6,
+      "lane": "remote",
+      "text": "They also want to know whether customer loyalty IDs leave our systems at all."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "probe-residency",
+      "intent": "digDeeper",
+      "at": 6,
+      "snapshotAt": 4,
+      "mustInclude": [
+        "Follows the shift to legal and data residency rather than returning to reports",
+        "Asks something that would clarify what legal needs to approve, e.g. which exact requirement ended last year's pilot, or whether pseudonymised loyalty IDs would be acceptable"
+      ],
+      "mustNotInclude": [
+        "Asks again which reports the team uses",
+        "Asserts where the vendor stores data"
+      ],
+      "ideal": "Ask what exactly legal required last year, EU hosting only or also no loyalty IDs leaving, so the pilot can be scoped to pass."
+    },
+    {
+      "id": "contribute-angle",
+      "intent": "contribute",
+      "at": 6,
+      "snapshotAt": 5,
+      "mustInclude": [
+        "Offers a grounded angle on reducing the legal blocker (e.g. aggregating at store level so loyalty IDs never leave)",
+        "Marks general-knowledge suggestions as uncertain rather than as facts about this vendor"
+      ],
+      "mustNotInclude": [
+        "States a specific certification or hosting location of the vendor as fact"
+      ],
+      "ideal": "Suggest scoping the pilot on store-level aggregates without loyalty IDs, so the residency question narrows to aggregated data."
+    }
+  ],
+  "sources": []
+}

@@ -1,0 +1,43 @@
+{
+  "id": "workclient-en-nobrief-holdout-migration-scope",
+  "title": "Held-out: client says migration is nearly done, but the remaining part is the hard one",
+  "profile": "workClient",
+  "language": "en",
+  "purpose": "Agree the next phase of the document archive migration",
+  "objectives": [
+    "Confirm how much of the migration is finished",
+    "Agree what blocks the next phase"
+  ],
+  "attendees": [
+    { "id": "p-lena", "name": "Lena Brandt" }
+  ],
+  "edgeCases": [
+    "conflictingClaims"
+  ],
+  "turns": [
+    { "seq": 1, "lane": "me", "text": "Where are we with the archive migration?" },
+    { "seq": 2, "lane": "remote", "text": "Good shape. We're about ninety percent done by document count." },
+    { "seq": 3, "lane": "me", "text": "What's left?" },
+    { "seq": 4, "lane": "remote", "text": "Mostly the legal department's folders. They're small in number but they have the retention holds." },
+    { "seq": 5, "lane": "remote", "text": "The tool we used skips anything with a hold on it, so those all have to be moved by hand with legal signing off each batch." },
+    { "seq": 6, "lane": "remote", "text": "Legal reviews on Thursdays only, and they've said two batches a week at most." }
+  ],
+  "checkpoints": [
+    {
+      "id": "probe-remaining",
+      "intent": "digDeeper",
+      "at": 6,
+      "snapshotAt": 4,
+      "mustInclude": [
+        "Probes the gap between '90% done by count' and the remaining work being manual, hold-bound and limited by legal's review capacity, e.g. how many batches remain or how long they take at two a week",
+        "Is a single question the user can ask now"
+      ],
+      "mustNotInclude": [
+        "Re-asks what is left to migrate",
+        "Treats the migration as nearly finished"
+      ],
+      "ideal": "Ask how many held batches remain, since at two batches a week the last ten percent by count could take longer than the first ninety."
+    }
+  ],
+  "sources": []
+}

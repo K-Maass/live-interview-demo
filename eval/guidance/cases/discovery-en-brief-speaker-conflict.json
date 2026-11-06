@@ -1,0 +1,69 @@
+{
+  "id": "discovery-en-brief-speaker-conflict",
+  "title": "Discovery call where the user's earlier statement conflicts with the client",
+  "profile": "discovery",
+  "language": "en",
+  "purpose": "Scope an integration between the client's CRM and our billing system",
+  "objectives": [
+    "Which CRM edition do they use?",
+    "Is API access available?"
+  ],
+  "brief": {
+    "text": "Client: Fernwood Media (fictional). Our integration needs CRM API access, which some editions lack.",
+    "objectives": [
+      "Confirm API access"
+    ]
+  },
+  "attendees": [
+    {
+      "id": "p-ola",
+      "name": "Ola Nordin"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "integration-notes",
+      "title": "Integration requirements",
+      "kind": "markdown",
+      "text": "Integration needs REST API access. API access is available on Professional and Enterprise editions, not on Starter.",
+      "revision": 1
+    }
+  ],
+  "edgeCases": [
+    "conflictingClaims"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "I assumed you're on the Enterprise edition, so API access shouldn't be a problem."
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Actually we're on Starter, we downgraded in spring to save money."
+    },
+    {
+      "seq": 3,
+      "lane": "remote",
+      "text": "Our admin says we can use the API with a workaround through Zapier."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "contribute",
+      "intent": "contribute",
+      "at": 3,
+      "snapshotAt": 2,
+      "mustInclude": [
+        "Corrects the user's earlier assumption: Starter does not include API access according to the integration notes",
+        "Raises that the Zapier workaround is unverified for this integration and may need checking, marked uncertain"
+      ],
+      "mustNotInclude": [
+        "Says API access is available on their edition",
+        "States that Zapier definitely works or definitely fails as fact"
+      ],
+      "ideal": "Correct the earlier assumption: Starter lacks API access; ask whether upgrading or the Zapier route is acceptable and check the latter."
+    }
+  ]
+}

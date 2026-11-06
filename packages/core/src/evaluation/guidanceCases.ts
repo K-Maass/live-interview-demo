@@ -13,6 +13,7 @@ import {
   reduceMeetingEvent,
   SnapshotStore,
 } from "../snapshots";
+import type { StageRecorder } from "../guidance/latency";
 
 /** Offline guidance evaluation case. Synthetic cases are committed; private ones stay local. */
 export const edgeCases = [
@@ -204,6 +205,7 @@ const hit = (c: GuidanceCase, s: CaseSource): SourceHit => ({
 export function buildCheckpointBasis(
   c: GuidanceCase,
   checkpoint: Checkpoint,
+  timing?: StageRecorder,
 ): HotkeyContext {
   let state: MeetingState = createMeetingState({
     id: c.id,
@@ -291,5 +293,8 @@ export function buildCheckpointBasis(
       });
   }
   if (!published) publish();
-  return structuredClone(store.read(state));
+  const read = timing
+    ? timing.time("snapshotRead", () => store.read(state))
+    : store.read(state);
+  return structuredClone(read);
 }

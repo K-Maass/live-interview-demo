@@ -1,0 +1,42 @@
+{
+  "id": "workclient-de-nobrief-holdout-support-hours",
+  "title": "Held-out: German client wants faster response but the delay is outside the support team",
+  "profile": "workClient",
+  "language": "de",
+  "purpose": "Reaktionszeiten im Support besprechen",
+  "objectives": [
+    "Verstehen, warum Tickets lange offen bleiben",
+    "Nächsten Schritt vereinbaren"
+  ],
+  "attendees": [
+    { "id": "p-jan", "name": "Jan Petersen" }
+  ],
+  "edgeCases": [
+    "conflictingClaims"
+  ],
+  "turns": [
+    { "seq": 1, "lane": "me", "text": "Was ist aus Ihrer Sicht das Hauptproblem im Support?", "translation": "From your point of view, what is the main problem in support?" },
+    { "seq": 2, "lane": "remote", "text": "Die Tickets bleiben zu lange offen. Wir brauchen mehr Leute im Support.", "translation": "Tickets stay open too long. We need more people in support." },
+    { "seq": 3, "lane": "me", "text": "Wie schnell antwortet das Team heute?", "translation": "How quickly does the team respond today?" },
+    { "seq": 4, "lane": "remote", "text": "Die erste Antwort kommt eigentlich innerhalb einer Stunde.", "translation": "The first reply actually comes within an hour." },
+    { "seq": 5, "lane": "remote", "text": "Danach warten die meisten Tickets auf die Entwicklung, und die schaut nur einmal pro Sprint drauf.", "translation": "After that most tickets wait for development, and they only look at them once per sprint." }
+  ],
+  "checkpoints": [
+    {
+      "id": "probe-wait",
+      "intent": "digDeeper",
+      "at": 5,
+      "snapshotAt": 3,
+      "mustInclude": [
+        "Probes the gap between 'we need more support staff' and the delay sitting with development's once-per-sprint review, e.g. how many open tickets are waiting on development",
+        "Is a single question the user can ask now"
+      ],
+      "mustNotInclude": [
+        "Re-asks how quickly support responds",
+        "Accepts that more support staff would fix the delay"
+      ],
+      "ideal": "Ask what share of the long-open tickets are waiting for development rather than support, since the first reply already comes within an hour."
+    }
+  ],
+  "sources": []
+}

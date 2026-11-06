@@ -1,0 +1,14 @@
+{
+  "name": "live-interview-technical-preview",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "workspaces": ["packages/core"],
+  "scripts": {
+    "demo": "vite-node scripts/replay.ts",
+    "check": "npm run check --workspace @live-interview/core",
+    "test": "npm run test --workspace @live-interview/core && node --test apps/service/test/providers.test.mjs"
+  },
+  "dependencies": { "ajv": "8.20.0" },
+  "devDependencies": { "vite-node": "3.2.4" }
+}

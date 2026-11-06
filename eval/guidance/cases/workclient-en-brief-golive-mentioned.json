@@ -1,0 +1,103 @@
+{
+  "id": "workclient-en-brief-golive-mentioned",
+  "title": "Client status meeting where go-live is only mentioned",
+  "profile": "workClient",
+  "language": "en",
+  "purpose": "Weekly status with the client on the HR portal migration",
+  "objectives": [
+    "Agree the go-live date",
+    "Confirm who signs off user acceptance testing"
+  ],
+  "brief": {
+    "text": "Project: HR portal migration for Alder Insurance (fictional). Our plan says go-live 3 March, subject to UAT sign-off.",
+    "objectives": [
+      "Agree go-live date",
+      "UAT sign-off owner"
+    ]
+  },
+  "attendees": [
+    {
+      "id": "p-tom",
+      "name": "Tomasz Wilk"
+    },
+    {
+      "id": "p-ana",
+      "name": "Ana Ruiz"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "plan",
+      "title": "Migration plan",
+      "kind": "markdown",
+      "text": "Go-live planned 3 March. UAT runs 10-21 February. Sign-off by the client HR systems owner.",
+      "revision": 1
+    }
+  ],
+  "edgeCases": [
+    "mentionedNotCovered"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Quick status: data migration dry run finished, two mapping issues open."
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Good. On go-live, early March still sounds fine to us, we'll see after testing."
+    },
+    {
+      "seq": 3,
+      "lane": "me",
+      "text": "Great. For UAT, who signs off on your side?"
+    },
+    {
+      "seq": 4,
+      "lane": "remote",
+      "text": "That would be Ana's team, or maybe the HR systems owner, we haven't decided."
+    },
+    {
+      "seq": 5,
+      "lane": "remote",
+      "text": "Let's look at the mapping issues now."
+    },
+    {
+      "seq": 6,
+      "lane": "me",
+      "text": "Sure, the first one is the cost centre codes for contractors."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "objectives",
+      "intent": "checkObjectives",
+      "at": 6,
+      "snapshotAt": 5,
+      "mustInclude": [
+        "States that the go-live date is not agreed (only 'early March, we'll see')",
+        "States that the UAT sign-off owner is still undecided between Ana's team and the HR systems owner",
+        "Suggests a concrete way to close one of them before the meeting ends"
+      ],
+      "mustNotInclude": [
+        "Marks the go-live date as agreed",
+        "Marks the UAT sign-off owner as confirmed"
+      ],
+      "ideal": "Both objectives remain open; propose confirming 3 March conditional on UAT and naming one sign-off owner today."
+    },
+    {
+      "id": "contribute",
+      "intent": "contribute",
+      "at": 6,
+      "snapshotAt": 6,
+      "mustInclude": [
+        "Connects the undecided sign-off owner to the UAT window (10-21 February) as a schedule risk"
+      ],
+      "mustNotInclude": [
+        "Invents a new date or owner"
+      ],
+      "ideal": "Mention that without an owner before 10 February, UAT sign-off and the 3 March go-live are at risk."
+    }
+  ]
+}

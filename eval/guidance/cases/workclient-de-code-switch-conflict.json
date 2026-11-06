@@ -1,0 +1,66 @@
+{
+  "id": "workclient-de-code-switch-conflict",
+  "title": "German client meeting with code-switching and a changed decision",
+  "profile": "workClient",
+  "language": "de",
+  "purpose": "Hosting-Entscheidung finalisieren",
+  "objectives": [
+    "Hosting-Region festlegen",
+    "Verantwortlichen für Migration benennen"
+  ],
+  "attendees": [
+    {
+      "id": "p-kai",
+      "name": "Kai Neumann"
+    }
+  ],
+  "edgeCases": [
+    "codeSwitching",
+    "conflictingClaims"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "remote",
+      "text": "Wir gehen mit der Region Frankfurt, das ist decided.",
+      "translation": "We are going with the Frankfurt region, that's decided."
+    },
+    {
+      "seq": 2,
+      "lane": "me",
+      "text": "Super, dann planen wir die Migration entsprechend.",
+      "translation": "Great, then we'll plan the migration accordingly."
+    },
+    {
+      "seq": 3,
+      "lane": "remote",
+      "text": "Wobei, unser Security Team meinte gestern, wir sollten eventuell Zürich nehmen wegen eines Schweizer Kunden.",
+      "translation": "Although, our security team said yesterday we should perhaps take Zurich because of a Swiss customer."
+    },
+    {
+      "seq": 4,
+      "lane": "remote",
+      "text": "Aber das ist noch nicht final.",
+      "translation": "But that isn't final yet."
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "check-convo",
+      "intent": "checkConversation",
+      "at": 4,
+      "snapshotAt": 3,
+      "mustInclude": [
+        "Flags that the hosting region is no longer decided: Frankfurt was called decided, then Zurich was raised as a possibility",
+        "Notes the migration owner is still not named",
+        "Keeps Zurich as tentative ('eventuell', 'nicht final')"
+      ],
+      "mustNotInclude": [
+        "Treats Frankfurt as final",
+        "Treats Zurich as decided"
+      ],
+      "ideal": "Check: region is open again (Frankfurt vs possibly Zurich for the Swiss customer); pause migration planning until security confirms, and name an owner."
+    }
+  ],
+  "sources": []
+}

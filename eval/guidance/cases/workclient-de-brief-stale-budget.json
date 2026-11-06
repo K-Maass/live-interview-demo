@@ -1,0 +1,82 @@
+{
+  "id": "workclient-de-brief-stale-budget",
+  "title": "German client meeting with a budget sheet revised after the snapshot",
+  "profile": "workClient",
+  "language": "de",
+  "purpose": "Budgetstand im Projekt Abstimmen",
+  "objectives": [
+    "Aktuellen Budgetstand bestätigen",
+    "Nächsten Meilenstein festlegen"
+  ],
+  "brief": {
+    "text": "Project for Bergmann Bau (fictional). Budget tracking sheet maintained by the client controller.",
+    "objectives": [
+      "Budget status"
+    ]
+  },
+  "attendees": [
+    {
+      "id": "p-uwe",
+      "name": "Uwe Bergmann"
+    }
+  ],
+  "sources": [
+    {
+      "sourceId": "budget",
+      "title": "Budgetübersicht",
+      "kind": "markdown",
+      "text": "Verbraucht: 62 Prozent des Budgets. Restbudget: 38.000 EUR. Stand 1. Oktober.",
+      "revision": 1
+    }
+  ],
+  "edgeCases": [
+    "staleSource"
+  ],
+  "turns": [
+    {
+      "seq": 1,
+      "lane": "me",
+      "text": "Laut Übersicht sind wir bei zweiundsechzig Prozent verbraucht.",
+      "translation": "According to the overview we have used sixty-two percent."
+    },
+    {
+      "seq": 2,
+      "lane": "remote",
+      "text": "Die Zahl ist nicht mehr aktuell, unser Controller hat die Übersicht heute morgen aktualisiert.",
+      "translation": "That number is no longer current, our controller updated the overview this morning."
+    },
+    {
+      "seq": 3,
+      "sourceUpdate": {
+        "sourceId": "budget",
+        "title": "Budgetübersicht",
+        "kind": "markdown",
+        "text": "Verbraucht: 71 Prozent des Budgets. Restbudget: 29.000 EUR. Stand 12. Oktober.",
+        "revision": 2
+      }
+    },
+    {
+      "seq": 4,
+      "lane": "remote",
+      "text": "Was heißt das jetzt für den nächsten Meilenstein?",
+      "translation": "What does that mean for the next milestone now?"
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "respond",
+      "intent": "respond",
+      "at": 4,
+      "snapshotAt": 2,
+      "mustInclude": [
+        "Does not present sixty-two percent or 38,000 EUR as current",
+        "Says the updated figure has to be checked or is not yet visible, and gives a conditional answer about the milestone"
+      ],
+      "mustNotInclude": [
+        "States the remaining budget is 38,000 EUR as current fact",
+        "Invents the new figure"
+      ],
+      "ideal": "The overview was updated this morning and I don't have the new figure yet; let's check the remaining budget before fixing the next milestone."
+    }
+  ]
+}
